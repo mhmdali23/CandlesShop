@@ -4,8 +4,11 @@ module.exports = {
     "./src/**/*.{html,ts}", // Include all your Angular templates and components
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        irish: ['Irish Grover', 'cursive'],
+      },
   },
   plugins: [],
 }
-
+}
