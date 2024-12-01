@@ -1,5 +1,5 @@
-<nav class="bg-white">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<nav class="bg-white pt-6">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 ">
     <div class="flex justify-between items-center h-16">
       <!-- Brand -->
       <a class="text-white text-xl font-bold" href="/home">
@@ -7,11 +7,11 @@
       </a>
 
       <!-- Desktop Menu (Centered) -->
-      <div class="hidden md:flex space-x-8 absolute left-1/2 transform -translate-x-1/2">
-        <a class="text-black hover:text-lime-600" href="/home">Home</a>
-        <a class="text-black hover:text-lime-600" href="shop.html">Shop</a>
-        <a class="text-black hover:text-lime-600" href="about.html">About us</a>
-        <a class="text-black hover:text-lime-600" href="contact.html">Contact us</a>
+      <div class="hidden md:flex space-x-8 absolute left-1/2 transform -translate-x-1/2 font-bold">
+        <a class="text-black hover:text-[#385a28]" href="/home">Home</a>
+        <a class="text-black hover:text-[#385a28]" href="shop.html">Shop</a>
+        <a class="text-black hover:text-[#385a28]" href="about.html">About us</a>
+        <a class="text-black hover:text-[#385a28]" href="contact.html">Contact us</a>
       </div>
 
       <!-- Mobile Menu Toggle Button -->
@@ -32,28 +32,28 @@
         <a href="#">
           <img src="images/Union.svg" alt="Cart Icon" class="h-6 w-6 icon hover:filter-lime">
         </a>
-        
-        
       </div>
     </div>
 
     <!-- Mobile Menu -->
     <div 
-      *ngIf="isMenuOpen" 
-      class="md:hidden bg-lime-700 text-white space-y-2 py-4 px-4 rounded-lg shadow-lg"
-    >
-      <div class="flex space-x-4 mt-4 ml-2">
-        <a href="#">
-          <img src="images/User.svg" alt="User Icon" class="h-6 w-6  icon hover:filter-lime">
-        </a>
-        <a href="#">
-          <img src="images/Union.svg" alt="Cart Icon" class="h-6 w-6 icon hover:filter-lime">
-        </a>  
-      </div>
-      <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="index.html">Home</a>
-      <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="shop.html">Shop</a>
-      <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="about.html">About us</a>
-      <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="contact.html">Contact us</a>   
+    class="absolute top-[100px] left-0 w-full bg-[#385a28] text-white space-y-2 py-4 px-4 shadow-lg z-50 transition-all duration-500 overflow-hidden"
+    [style.maxHeight]="isMenuOpen ? '300px' : '0'"
+    [style.opacity]="isMenuOpen ? '1' : '0'"
+  >
+    <div class="flex space-x-4 mt-4 ml-2">
+      <a href="#">
+        <img src="images/User.svg" alt="User Icon" class="h-6 w-6 icon hover:filter-lime">
+      </a>
+      <a href="#">
+        <img src="images/Union.svg" alt="Cart Icon" class="h-6 w-6 icon hover:filter-lime">
+      </a>  
     </div>
+    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="index.html">Home</a>
+    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="shop.html">Shop</a>
+    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="about.html">About us</a>
+    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="contact.html">Contact us</a>   
+  </div>
+  
   </div>
 </nav>
