@@ -1,5 +1,5 @@
 ## Back-end Repository  
-Check out  on [GitHub](https://github.com/abdelrahman-sedeek/CanddelsBackEnd)
+Check out  on [CandlesBackEnd](https://github.com/abdelrahman-sedeek/CanddelsBackEnd)
 
 # CandlesShop
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.5.
