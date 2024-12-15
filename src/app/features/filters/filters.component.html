@@ -1,0 +1,32 @@
+<div class="p-5 sm:p-8 md:p-11">
+    <label class="block text-lg font-semibold text-gray-700">Scents</label>
+    <div class="space-y-2">
+      <div *ngFor="let scent of availableScents" class="flex items-center">
+        <input 
+          type="checkbox" 
+          id="scent-{{scent}}" 
+          [value]="scent" 
+          [checked]="selectedScents.includes(scent)"
+          (change)="onScentChange(scent, $event)"
+          class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 appearance-none relative checkbox-custom" />
+        <label for="scent-{{scent}}" class="ml-2 text-gray-600">{{ scent }}</label>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Filter by Categories -->
+  <div class="p-5 sm:p-8 md:p-11">
+    <label class="block text-lg font-semibold text-gray-700">Categories</label>
+    <div class="space-y-2">
+      <div *ngFor="let category of availableCategories" class="flex items-center">
+        <input 
+          type="checkbox" 
+          id="category-{{category.id}}" 
+          [value]="category.id" 
+          [checked]="selectedCategories.includes(category.id)"
+          (change)="onCategoryChange(category.id, $event)"
+          class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 appearance-none relative checkbox-custom" />
+        <label for="category-{{category.id}}" class="ml-2 text-gray-600">{{ category.name }}</label>
+      </div>
+    </div>
+  </div>

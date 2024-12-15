@@ -8,8 +8,8 @@
 
       <!-- Desktop Menu (Centered) -->
       <div class="hidden md:flex space-x-8 absolute left-1/2 transform -translate-x-1/2 font-bold">
-        <a class="text-black hover:text-[#385a28]" href="/home">Home</a>
-        <a class="text-black hover:text-[#385a28]" href="shop.html">Shop</a>
+        <a class="text-black hover:text-[#385a28]" routerLink="/home">Home</a>
+        <a class="text-black hover:text-[#385a28]" routerLink="/shop">Shop</a>
         <a class="text-black hover:text-[#385a28]" href="about.html">About us</a>
         <a *ngIf="isAuth" class="text-black hover:text-[#385a28]" href="/dashboard">Dashboard</a>   
       </div>
@@ -46,7 +46,7 @@
       
     </div>
     <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="index.html">Home</a>
-    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="shop.html">Shop</a>
+    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" routerLink="/shop">Shop</a>
     <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="about.html">About us</a>
     <a *ngIf="isAuth" class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="/dashboard">Dashboard</a>   
   </div>
