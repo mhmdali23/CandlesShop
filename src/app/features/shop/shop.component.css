@@ -1,0 +1,12 @@
+.product-card img {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .product-card img:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-card button {
+    transition: background-color 0.3s ease;
+  }
+  

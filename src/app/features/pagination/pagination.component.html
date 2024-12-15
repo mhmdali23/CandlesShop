@@ -1,0 +1,44 @@
+<nav *ngIf="totalPages >= 1">
+    <ul class="pagination justify-content-center space-x-1">
+      <!-- Previous Button -->
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button 
+          class="page-link w-10 h-10 py-2 px-3 text-sm rounded-full text-gray-800 hover:bg-lime-400 disabled:opacity-50 transition-all duration-200 transform hover:scale-105 focus:scale-105 flex items-center justify-center"
+          (click)="changePage(currentPage - 1)" 
+          aria-label="Previous"
+          [disabled]="currentPage === 1">
+          <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+        </button>
+      </li>
+  
+      <!-- Page Numbers -->
+      <li class="page-item rounded-full" 
+          *ngFor="let page of pages" 
+          [ngClass]="{
+            'bg-lime-500 text-white shadow-lg': page === currentPage,
+            'hover:bg-lime-500': page !== currentPage
+          }">
+        <button 
+          class="page-link w-10 h-10 py-2 px-3 text-sm rounded-full text-gray-800 disabled:opacity-50 transition-all duration-200 transform hover:scale-105 focus:scale-105 flex items-center justify-center"
+          (click)="changePage(page)">
+          {{ page }}
+        </button>
+      </li>
+  
+      <!-- Next Button -->
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button 
+          class="page-link w-10 h-10 py-2 px-3 text-sm rounded-full text-gray-800 hover:bg-lime-400 disabled:opacity-50 transition-all duration-200 transform hover:scale-105 focus:scale-105 flex items-center justify-center"
+          (click)="changePage(currentPage + 1)" 
+          aria-label="Next"
+          [disabled]="currentPage === totalPages">
+          <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </nav>
+  
