@@ -48,37 +48,26 @@ export class ShopComponent implements OnInit {
     })
   }
 
- onPageChanged(page: number): void {
-  console.log('Page changed to:', page); // Debug page change
-  if (this.currentPage !== page) {
-    this.currentPage = page; // Update current page
-    this.loadProducts(); // Reload products for the new page
-  }
-}
-
-
-
+  onPageChanged(page: number): void {
+    if (this.currentPage !== page) {
+      this.currentPage = page;
   
-  onFiltersChanged(filters: { scents: string[]; categories: number[] }) {
+      const filters = { scents: this.selectedScents, categories: this.selectedCategories };
+      this.loadProducts(); // Load products for the selected page
+    }
+  }
 
-    const params :ProductParams={
-      PageIndex: this.currentPage,
-      PageSize:this.itemsPerPage,
-      Scent: filters.scents,
-      Categories:filters.categories
-    };
 
-    console.log(params);
-    this.productService.getProducts(params).subscribe({
-      next: (response) =>{
-        this.products=response.data
-        this.totalItems = response.totalCount
-        console.log(response);
+  onFiltersChanged(filters: { scents: string[]; categories: number[] }): void {
+    // Update selected filters
+    this.selectedScents = filters.scents;
+    this.selectedCategories = filters.categories;
 
-      }
-      
-    })
-    
+    // Reset to the first page when filters change
+    this.currentPage = 1;
+
+    // Reload products with updated filters and pagination
+    this.loadProducts();
   }
 
   calculateDiscount(originalPrice: number, discountedPrice: number): number {

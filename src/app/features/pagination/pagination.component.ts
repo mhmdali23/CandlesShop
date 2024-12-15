@@ -9,9 +9,9 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
   styleUrls: ['./pagination.component.css'],
 })
 export class PaginationComponent {
-  @Input() totalItems: number =0; // Total number of items
-  @Input() itemsPerPage: number = 6; // Items per page
-  @Input() currentPage: number = 1; // Current active page
+  @Input() totalItems: number =0;
+  @Input() itemsPerPage: number = 6; 
+  @Input() currentPage: number = 1;
 
   @Output() pageChanged = new EventEmitter<number>();
 
@@ -33,7 +33,7 @@ export class PaginationComponent {
 
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
-      console.log('Changing to page:', page); // Debug
+      console.log('Changing to page:', page); 
       this.pageChanged.emit(page);
     }
   }

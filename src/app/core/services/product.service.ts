@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductParams } from '../../models/productParams';
 import { Paging } from '../../models/paging';
+import { Product } from '../../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class ProductService {
 
   private baseUrl = "https://localhost:7012/api/Product"
   private scentUrl = "https://localhost:7012/api/Product/scents"
+  private homeProducts = "https://localhost:7012/api/Product/homeProducts";
 
   constructor(private http:HttpClient) { }
 
@@ -33,15 +35,17 @@ export class ProductService {
         httpParams = httpParams.append('CategoryIds', category);
       });
     }
-  
-    //console.log('Generated HttpParams:', httpParams.toString()); 
-  
+    
     return this.http.get<Paging>(this.baseUrl, { params: httpParams });
   }
   
 
   getScents():Observable<string[]>{
     return this.http.get<string[]>(this.scentUrl);
+  }
+
+  getHomeProducts():Observable<Product[]>{
+    return this.http.get<Product[]>(this.homeProducts);
   }
 
 }
