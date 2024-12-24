@@ -7,6 +7,7 @@ export interface Product{
     stock: number,
     highestPrice: number
     lowestPrice: number
+    isDailyOffer:boolean
     highestPriceAfterDiscount:number
     lowestPriceAfterDiscount: number
     categoryName: string

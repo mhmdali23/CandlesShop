@@ -1,0 +1,72 @@
+<div class="font-sans max-w-4xl max-md:max-w-xl mx-auto p-4">
+  <h1 class="text-2xl font-extrabold mt-11 text-gray-800">Your Cart</h1>
+  <div *ngIf="cartItems.length === 0" class="text-center py-6 text-gray-500">
+    <p >Your cart is empty.</p>
+  </div>
+  <div  *ngIf="cartItems.length > 0"  class="grid md:grid-cols-3 gap-4 mt-8">
+      <div class="md:col-span-2 space-y-4">
+          <div *ngFor="let item of cartItems" class="flex gap-4 bg-white px-4 py-6 rounded-md shadow-[0_2px_12px_-3px_rgba(6,81,237,0.3)]">
+              <div class="flex gap-4">
+                  <div class="w-28 h-28 max-sm:w-24 max-sm:h-24 shrink-0">
+                      <img [src]="item.imageUrl" class="w-full h-full object-contain" />
+                  </div>
+
+                  <div class="flex flex-col gap-4">
+                      <div>
+                          <h3 class="text-base font-bold text-gray-800">{{item.name}}</h3>
+                          <p class="text-sm font-semibold text-gray-500 mt-2 flex items-center gap-2">Scent : {{item.scent}}</p>
+                          <p class="text-sm font-semibold text-gray-500 mt-2 flex items-center gap-2">Weight : {{item.weight}}g</p>
+                      </div>
+                      
+                      <div class="mt-auto flex items-center gap-3">
+                        <button type="button" (click)="decreaseQuantity(item)" class="flex items-center justify-center w-5 h-5 bg-gray-400 outline-none rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-2 fill-white" viewBox="0 0 124 124">
+                                <path d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z"></path>
+                            </svg>
+                        </button>
+                        <span class="font-bold text-sm leading-[18px] w-12 text-center border rounded">
+                            {{ item.quantity }}
+                        </span>
+                        <button type="button" (click)="increaseQuantity(item)" class="flex items-center justify-center w-5 h-5 bg-gray-400 outline-none rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-2 fill-white" viewBox="0 0 42 42">
+                                <path d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    
+                  </div>
+              </div>
+
+              <div class="ml-auto flex flex-col">
+                  <div class="flex items-start gap-4 justify-end">
+                    <button (click)="removeItem(item.productVariantId)" class="rounded-full group flex items-center justify-center focus-within:outline-red-500">
+                                <svg width="34" height="34" viewBox="0 0 34 34" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle class="fill-red-50 transition-all duration-500 group-hover:fill-red-400"
+                                        cx="17" cy="17" r="17" fill="" />
+                                    <path class="stroke-red-500 transition-all duration-500 group-hover:stroke-white"
+                                        d="M14.1673 13.5997V12.5923C14.1673 11.8968 14.7311 11.333 15.4266 11.333H18.5747C19.2702 11.333 19.834 11.8968 19.834 12.5923V13.5997M19.834 13.5997C19.834 13.5997 14.6534 13.5997 11.334 13.5997C6.90804 13.5998 27.0933 13.5998 22.6673 13.5997C21.5608 13.5997 19.834 13.5997 19.834 13.5997ZM12.4673 13.5997H21.534V18.8886C21.534 20.6695 21.534 21.5599 20.9807 22.1131C20.4275 22.6664 19.5371 22.6664 17.7562 22.6664H16.2451C14.4642 22.6664 13.5738 22.6664 13.0206 22.1131C12.4673 21.5599 12.4673 20.6695 12.4673 18.8886V13.5997Z"
+                                        stroke="#EF4444" stroke-width="1.6" stroke-linecap="round" />
+                                </svg>
+                    </button>
+                  </div>
+                  <h3 class="text-base font-bold text-gray-800 mt-auto">{{ item.price| currency }}</h3>
+                  <h3 class="text-base font-bold text-gray-800 mt-auto">{{ calculateItemTotal(item) | currency }}</h3>
+                </div>
+          </div>
+      </div>
+
+      <div class="bg-white rounded-md px-4 py-6 h-max shadow-[0_2px_12px_-3px_rgba(6,81,237,0.3)]">
+          <ul class="text-gray-800 space-y-4">
+              <hr class="border-gray-300" />
+              <li class="flex flex-wrap gap-4 text-sm font-bold">Total <span class="ml-auto">{{calculateTotalPrice() | currency }}</span></li>
+          </ul>
+
+          <div class="mt-8 space-y-2">
+              <button (click)="navigateToOrder()" type="button" class="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-gray-800 hover:bg-gray-900 text-white rounded-md">Check Out</button>
+              <button (click)="navigateToShop()" type="button" class="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-transparent hover:bg-gray-100 text-gray-800 border border-gray-300 rounded-md">Continue Shopping </button>
+          </div>         
+      </div>
+    </div>
+</div>
