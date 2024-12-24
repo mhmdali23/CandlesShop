@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ProductParams } from '../../models/productParams';
 import { Paging } from '../../models/paging';
 import { Product } from '../../models/product';
+import { ProductDetails } from '../../models/productDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ProductService {
   private baseUrl = "https://localhost:7012/api/Product"
   private scentUrl = "https://localhost:7012/api/Product/scents"
   private homeProducts = "https://localhost:7012/api/Product/homeProducts";
-
+  private productById = "https://localhost:7012/api/Product"
   constructor(private http:HttpClient) { }
 
   getProducts(params: ProductParams): Observable<Paging> {
@@ -48,4 +49,8 @@ export class ProductService {
     return this.http.get<Product[]>(this.homeProducts);
   }
 
+
+  getProductById(id:number):Observable<ProductDetails>{
+    return this.http.get<ProductDetails>(`${this.productById}/${id}`);
+  }
 }

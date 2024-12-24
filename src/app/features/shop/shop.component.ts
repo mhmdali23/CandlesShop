@@ -15,6 +15,8 @@ import { ProductParams } from '../../models/productParams';
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
+  
+
   products: Product[] = []; // Array to store fetched products
   totalItems:number=0;
   currentPage:number=1;
