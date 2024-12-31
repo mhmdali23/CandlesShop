@@ -54,7 +54,7 @@
         </li>
         <li>
             <a routerLink="/dashboard" class="flex items-center text-white rounded-sm hover:text-[#385a28] p-4  hover:bg-white transition"
-            [ngClass]="{'bg-white text-[#385a28]':activeItem==='dashboard'}"
+            [ngClass]="{'bg-white text-[#385a29]' :activeItem==='dashboard'}"
             (click)="setActive('dashboard')"
             >
                 <span class="flex items-center justify-center w-14 h-14">
@@ -68,7 +68,7 @@
         </li>
         <li>
             <a routerLink="/dashboard/candles" class="flex items-center text-white rounded-sm hover:text-[#385a28] p-4  hover:bg-white transition"
-                [ngClass]="{'bg-white text-[#385a28]':activeItem==='Candles'}"
+                [ngClass]="{'bg-white text-[#385a29]':activeItem==='Candles'}"
                 (click)="setActive('Candles')"
             >
                 <span class="flex items-center justify-center w-14 h-14">
@@ -82,7 +82,7 @@
         </li>
         <li>
             <a href="#" class="flex items-center text-white hover:text-[#385a28] rounded-sm p-4 l hover:bg-white transition"
-            [ngClass]="{'bg-white text-[#385a28]':activeItem==='Customers'}"
+            [ngClass]="{'bg-white text-[#385a29]':activeItem==='Customers'}"
             (click)="setActive('Customers')"
 
             >
@@ -95,21 +95,7 @@
                 <span class="text-lg font-medium whitespace-nowrap" [style.display]="IsDashboardOpen?'none':'inline'">Customers</span>
             </a>
         </li>
-        <li>
-            <a href="#" class="flex items-center text-white hover:text-[#385a28] p-4 rounded-sm  hover:bg-white transition"
-            [ngClass]="{'bg-white text-[#385a28]':activeItem==='Messages'}"
-            (click)="setActive('Messages')"
-
-            >
-                <span class="flex items-center justify-center w-14 h-14">
-                    <!-- Messages SVG -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M21 2H3c-1.103 0-2 .897-2 2v16l4-4h16c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm-4 9h-4v2h4v-2z"></path>
-                    </svg>
-                </span>
-                <span class="text-lg font-medium whitespace-nowrap" [style.display]="IsDashboardOpen?'none':'inline'">Messages</span>
-            </a>
-        </li>
+       
         <li>
             <a href="#" class="flex items-center text-white hover:text-[#385a28] p-4 rounded-sm hover:bg-white transition"
             [ngClass]="{'bg-white text-[#385a28]':activeItem==='Help'}"
