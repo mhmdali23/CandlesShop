@@ -3,13 +3,17 @@ export interface Product{
     name: string
     scent: string
     isBestSeller: boolean
+    description:string
+    features:string
+    calltoaction:string
     imageUrl: string
-    stock: number,
     highestPrice: number
     lowestPrice: number
     isDailyOffer:boolean
     highestPriceAfterDiscount:number
     lowestPriceAfterDiscount: number
+    discountpercentage:number
+    benefits:string
     categoryName: string
     categoryId: number
 }

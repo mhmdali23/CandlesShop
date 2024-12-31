@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component} from '@angular/core';
+import {  RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -26,6 +26,7 @@ export class SidebarComponent {
 
   setActive(item:string){
     this.activeItem = item;
+    console.log(this.activeItem)
   }
 
   signout(){

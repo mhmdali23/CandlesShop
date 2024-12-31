@@ -6,6 +6,7 @@ import { ShopComponent } from './features/shop/shop.component';
 import { ProductDetailsComponent } from './features/product-details/product-details.component';
 import { CartComponent } from './features/cart/cart.component';
 import { OrderComponent } from './features/order/order.component';
+import { PageNotfoundComponent } from './features/page-notfound/page-notfound.component';
 
 export const routes: Routes = [
 
@@ -17,5 +18,6 @@ export const routes: Routes = [
     {path:'cart',component:CartComponent},
     {path:'order',component:OrderComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '**', component:PageNotfoundComponent },
 
 ];

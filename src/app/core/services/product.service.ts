@@ -5,6 +5,7 @@ import { ProductParams } from '../../models/productParams';
 import { Paging } from '../../models/paging';
 import { Product } from '../../models/product';
 import { ProductDetails } from '../../models/productDetails';
+import { UpdateProduct } from '../../models/updateProduct';
 
 @Injectable({
   providedIn: 'root'
@@ -53,4 +54,11 @@ export class ProductService {
   getProductById(id:number):Observable<ProductDetails>{
     return this.http.get<ProductDetails>(`${this.productById}/${id}`);
   }
+
+  updateProduct(formData: FormData, id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/update-product/${id}`, formData);
+ }
+ 
+  
+
 }
