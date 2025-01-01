@@ -6,6 +6,7 @@ import { Paging } from '../../models/paging';
 import { Product } from '../../models/product';
 import { ProductDetails } from '../../models/productDetails';
 import { UpdateProduct } from '../../models/updateProduct';
+import { ProductVariant, ProductVariantDash } from '../../models/productVariant';
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,16 @@ export class ProductService {
  addProduct(formData: FormData): Observable<any> {
   return this.http.post(`${this.baseUrl}/add-product`, formData);
 }
+
+  addVariants(productId: number, variants: ProductVariant[]):Observable<void>{
+    return this.http.put<void>(`/api/products/add-productVariant/${productId}`, variants);
+
+  }
+
+  updateProductVariants(productId: number, variants: ProductVariantDash[]): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/update-productVariant/${productId}`, variants,
+      { headers: { 'Content-Type': 'application/json' } });
+  }
+
 
 }
