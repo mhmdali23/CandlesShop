@@ -1,0 +1,177 @@
+<div class="bg-amber-200 p-6 rounded-lg shadow-lg max-w-3xl w-full mx-4 sm:mx-auto overflow-y-auto max-h-[90vh]">
+    <h2 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Add New Product</h2>
+
+    <form (ngSubmit)="addProduct()" #addProductForm="ngForm" class="space-y-6">
+
+      <!-- Product Name -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <label for="productName" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Name</label>
+        <input
+          id="productName"
+          type="text"
+          [(ngModel)]="newProduct.name"
+          name="name"
+          class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none"
+          required
+          minlength="3" />
+        <div *ngIf="addProductForm.controls['name']?.invalid && addProductForm.controls['name']?.touched" class="text-sm text-red-600">
+          Product name is required and must be at least 3 characters long.
+        </div>
+      </div>
+
+      <!-- Category Selection -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <label for="categoryId" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Category</label>
+        <select
+          id="categoryId"
+          [(ngModel)]="newProduct.categoryId"
+          name="categoryId"
+          class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none"
+          required>
+          <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+        </select>
+        <div *ngIf="addProductForm.controls['categoryId']?.invalid && addProductForm.controls['categoryId']?.touched" class="text-sm text-red-600">
+          Please select a category.
+        </div>
+      </div>
+
+      <!-- Scent -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <label for="scent" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Scent</label>
+        <select
+          id="scent"
+          [(ngModel)]="newProduct.scent"
+          name="scent"
+          class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none"
+          required>
+          <option *ngFor="let scent of scents" [value]="scent">{{ scent }}</option>
+        </select>
+        <div *ngIf="addProductForm.controls['scent']?.invalid && addProductForm.controls['scent']?.touched" class="text-sm text-red-600">
+          Please select a scent.
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+        <label for="description" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Description</label>
+        <textarea
+          id="description"
+          [(ngModel)]="newProduct.description"
+          name="description"
+          class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none"
+          rows="3"></textarea>
+      </div>
+
+      <!-- Features -->
+      <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+        <label for="features" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Features</label>
+        <textarea
+          id="features"
+          [(ngModel)]="newProduct.features"
+          name="features"
+          class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none"
+          placeholder="Enter features, separated by commas"
+          rows="3"></textarea>
+          <div class="text-xs text-gray-500 mt-2">Note: Separate features with commas.</div>
+
+      </div>
+
+      <!-- Benefits -->
+      <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+        <label for="benefits" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Benefits</label>
+        <textarea
+          id="benefits"
+          [(ngModel)]="newProduct.benefits"
+          name="benefits"
+          class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none"
+          placeholder="Enter benefits, separated by commas"
+
+          rows="3"></textarea>
+          <div class="text-xs text-gray-500 mt-2">Note: Please separate each benefit with a comma.</div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <label for="callToAction" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Call to Action</label>
+        <textarea
+          id="callToAction"
+          [(ngModel)]="newProduct.callToAction"
+          name="callToAction"
+          class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none" >
+        </textarea>
+      </div>
+
+     <!-- Discount Percentage -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <label for="discountPercentage" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Discount Percentage</label>
+        <input
+          id="discountPercentage"
+          type="number"
+          [(ngModel)]="newProduct.discountPercentage"
+          name="discountPercentage"
+          class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none"
+          min="0"
+          max="100"
+        />
+        <div *ngIf="addProductForm.controls['discountPercentage']?.invalid && addProductForm.controls['discountPercentage']?.touched" class="text-sm text-red-600">
+          Discount percentage must be between 0 and 100.
+        </div>
+      </div>
+
+
+      <!-- Product Image -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <label for="image" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Product Image</label>
+        <input
+          id="image"
+          type="file"
+          (change)="onImageSelected($event)"
+          name="image"
+          class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none"
+          required />
+        <div *ngIf="imageErrorMessage" class="text-sm text-red-600">
+          {{ imageErrorMessage }}
+        </div>
+      </div>
+
+<!-- Is Best Seller -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-4">
+  <label for="isBestSeller" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Is Best Seller</label>
+  <input
+    id="isBestSeller"
+    type="checkbox"
+    [(ngModel)]="newProduct.isBestSeller"
+    name="isBestSeller"
+    class="rounded-md shadow-sm"
+  />
+</div>
+
+<!-- Is Daily Offer -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-4">
+  <label for="isDailyOffer" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Is Daily Offer</label>
+  <input
+    id="isDailyOffer"
+    type="checkbox"
+    [(ngModel)]="newProduct.isDailyOffer"
+    name="isDailyOffer"
+    class="rounded-md shadow-sm"
+  />
+</div>
+      <!-- Action Buttons -->
+      <div class="flex justify-end space-x-2">
+        <button
+          type="button"
+          class="hover:bg-gray-400 text-gray-700 px-4 py-2 rounded"
+          (click)="closeAddProductModal()">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          [disabled]="addProductForm.invalid"
+          class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+          Add Product    
+        </button>
+      </div>
+
+    </form>
+  </div>

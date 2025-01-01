@@ -7,13 +7,14 @@ import { PaginationComponent } from '../../pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { CategoriesService } from '../../../core/services/categories.service';
 import { Category } from '../../../models/category';
-import { UpdateProduct } from '../../../models/updateProduct';
 import { ToastrService } from 'ngx-toastr';
+import { AddProductComponent } from "./add-product/add-product.component";
+import { UpdateProductComponent } from "./update-product/update-product.component";
 
 @Component({
   selector: 'app-candles',
   standalone: true,
-  imports: [CommonModule,PaginationComponent,FormsModule],
+  imports: [CommonModule, PaginationComponent, FormsModule, AddProductComponent, UpdateProductComponent],
   templateUrl: './candles.component.html',
   styleUrl: './candles.component.css'
 })
@@ -30,7 +31,22 @@ export class CandlesComponent implements OnInit {
   categories:Category[]=[]
 
 
-  imgFileName:string = ''
+  newProduct: any = {
+    name: '',
+    scent: '',
+    benefits: '',
+    callToAction: '',
+    isBestSeller: false,
+    isDailyOffer: false,
+    discountPercentage: null,
+    description: '',
+    features: '',
+    image: null,
+    categoryId: 0 // Set to a default valid category ID
+  };
+
+  isAddProductModalOpen = false;
+  imageErrorMessage: string = '';
 
   constructor(private productService:ProductService,private categoryService:CategoriesService,private toastr:ToastrService){}
 
@@ -97,21 +113,21 @@ export class CandlesComponent implements OnInit {
     this.selectedProduct=null
   }
 
-  updateProduct(): void {
-    if (this.selectedProduct) {
+  updateProduct(selectedProduct:any): void {
+    if (selectedProduct) {
         const formData = new FormData();
 
         // Append basic product details
-        formData.append('Name', this.selectedProduct.name);
-        formData.append('Scent', this.selectedProduct.scent);
-        formData.append('Benefits', this.selectedProduct.benefits || '');
-        formData.append('Description', this.selectedProduct.description || '');
-        formData.append('Features', this.selectedProduct.features || '');
-        formData.append('CallToAction', this.selectedProduct.calltoaction || '');
-        formData.append('DiscountPercentage', this.selectedProduct.discountpercentage?.toString() || '0');
-        formData.append('IsBestSeller', this.selectedProduct.isBestSeller.toString());
-        formData.append('IsDailyOffer', this.selectedProduct.isDailyOffer.toString());
-        formData.append('CategoryId', this.selectedProduct.categoryId?.toString());
+        formData.append('Name', selectedProduct.name);
+        formData.append('Scent', selectedProduct.scent);
+        formData.append('Benefits', selectedProduct.benefits || '');
+        formData.append('Description', selectedProduct.description || '');
+        formData.append('Features', selectedProduct.features || '');
+        formData.append('CallToAction', selectedProduct.calltoaction || '');
+        formData.append('DiscountPercentage', selectedProduct.discountpercentage?.toString() || '0');
+        formData.append('IsBestSeller', selectedProduct.isBestSeller.toString());
+        formData.append('IsDailyOffer', selectedProduct.isDailyOffer.toString());
+        formData.append('CategoryId', selectedProduct.categoryId?.toString());
 
         // Validate and append image if it exists
         const fileInput = document.querySelector('#image') as HTMLInputElement;
@@ -146,20 +162,50 @@ export class CandlesComponent implements OnInit {
             this.submitProductUpdate(formData);
         }
     }
-}
+  }
 
-private submitProductUpdate(formData: FormData): void {
-    this.productService.updateProduct(formData, this.selectedProduct!.id).subscribe({
-        next: () => {
-            this.closeModel();
-            this.loadProducts();
-            this.toastr.success('Product updated successfully');
-        },
-        error: (err) => {
-            console.error('Error updating product:', err);
-            this.toastr.error('Error updating product');
-        }
+  private submitProductUpdate(formData: FormData): void {
+      this.productService.updateProduct(formData, this.selectedProduct!.id).subscribe({
+          next: () => {
+              this.closeModel();
+              this.loadProducts();
+              this.toastr.success('Product updated successfully');
+          },
+          error: (err) => {
+              console.error('Error updating product:', err);
+              this.toastr.error('Error updating product');
+          }
+      });
+  }
+
+
+
+  openAddProductModal(): void {
+    this.isAddProductModalOpen = true;
+  }
+
+  closeAddProductModal(): void {
+    this.isAddProductModalOpen = false;
+  }
+
+ 
+
+  addProduct(newProduct:FormData): void {
+    
+    this.productService.addProduct(newProduct).subscribe({
+      next: () => {
+        this.closeAddProductModal();
+        this.loadProducts();
+        this.toastr.success('Product added successfully');
+      },
+      error: (err) => {
+        this.toastr.error('Failed to add product');
+        console.error('Error:', err);
+      }
     });
-}
+  }
+
+
+  
 
 }
