@@ -59,6 +59,8 @@ export class ProductService {
     return this.http.put(`${this.baseUrl}/update-product/${id}`, formData);
  }
  
-  
+ addProduct(formData: FormData): Observable<any> {
+  return this.http.post(`${this.baseUrl}/add-product`, formData);
+}
 
 }
