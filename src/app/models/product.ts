@@ -14,7 +14,7 @@ export interface Product{
     isDailyOffer:boolean
     highestPriceAfterDiscount:number
     lowestPriceAfterDiscount: number
-    discountpercentage:number
+    discountPercentage:number
     benefits:string
     categoryName: string
     categoryId: number
@@ -27,15 +27,15 @@ export interface ProductDash{
     isBestSeller: boolean
     description:string
     features:string
-    calltoaction:string
+    calltoAction:string
     imageUrl: string
     highestPrice: number
     lowestPrice: number
     isDailyOffer:boolean
     highestPriceAfterDiscount:number
     lowestPriceAfterDiscount: number
-    discountpercentage:number
-    benefits:string
+    discountPercentage:number
+    benfits:string
     categoryName: string
     categoryId: number
     variants:ProductVariantDash[]
