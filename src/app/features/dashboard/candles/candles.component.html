@@ -103,13 +103,50 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let variant of selectedProduct?.variants">
-          <td><input [(ngModel)]="variant.barcode" class="border p-1 w-full" /></td>
-          <td><input [(ngModel)]="variant.price" class="border p-1 w-full" /></td>
-          <td><input [(ngModel)]="variant.stockQuantity" class="border p-1 w-full" /></td>
-          <td><input [(ngModel)]="variant.weight" class="border p-1 w-full" /></td>
+        <tr *ngIf="selectedProduct?.variants?.length === 0">
+          <td colspan="5" class="text-center text-gray-500">
+            No variants available. Add a new variant.
+          </td>
+        </tr>
+        <tr *ngFor="let variant of selectedProduct?.variants; let i = index">
           <td>
-            <button 
+            <input
+              [(ngModel)]="variant.barcode"
+              class="border p-1 w-full"
+              type="number"
+              min="0"
+              required
+            />
+          </td>
+          <td>
+            <input
+              [(ngModel)]="variant.price"
+              class="border p-1 w-full"
+              type="number"
+              min="0"
+              required
+            />
+          </td>
+          <td>
+            <input
+              [(ngModel)]="variant.stockQuantity"
+              class="border p-1 w-full"
+              type="number"
+              min="0"
+              required
+            />
+          </td>
+          <td>
+            <input
+              [(ngModel)]="variant.weight"
+              class="border p-1 w-full"
+              type="number"
+              min="0"
+              required
+            />
+          </td>
+          <td>
+            <button
               class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded"
               (click)="removeVariant(variant)">
               Remove
@@ -117,6 +154,7 @@
           </td>
         </tr>
       </tbody>
+      
     </table>
 
     <button 
