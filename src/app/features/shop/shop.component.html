@@ -13,9 +13,13 @@
     <a [routerLink]="['/details', product.id]" *ngFor="let product of products" class="mx-auto w-full transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg">
       
       <!-- Discount Badge -->
-      <div *ngIf="product.isDailyOffer" class="absolute top-2 left-2 bg-red-500 text-white text-sm px-2 py-1 rounded-full">
-        {{ calculateDiscount(product.lowestPrice, product.lowestPriceAfterDiscount) }}% OFF
+      <div *ngIf="product.isDailyOffer && product.discountPercentage > 0 
+      && product.discountPercentage !== null  && product.lowestPrice !== 0" 
+        class="absolute top-2 left-2 bg-red-500 text-white text-sm px-2 py-1 rounded-full">
+        {{ calculateDiscount(product.lowestPrice, product.lowestPriceAfterDiscount) }}% OFF 
       </div>
+
+   
 
       <img class="h-48 w-full object-cover object-center" [src]="product.imageUrl" [alt]="product.name" />
       <div class="p-4">

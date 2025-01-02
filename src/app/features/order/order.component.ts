@@ -41,6 +41,7 @@ export class OrderComponent {
 
   ngOnInit(): void {
     this.sessionId =  this.getSessionId()
+    console.log('Session ID:', this.sessionId); // Debug log
     this.loadOrderSummary();
   }
 

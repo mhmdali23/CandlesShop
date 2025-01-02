@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductDash } from '../../../../models/product';
 
 @Component({
   selector: 'app-update-product',
@@ -18,6 +19,11 @@ export class UpdateProductComponent {
 
   @Output() productUpdated = new EventEmitter<any>();
   @Output() modalClosed = new EventEmitter<void>();
+
+  ngOnInit(): void {
+    console.log(this.selectedProduct);
+    
+  }
 
 
   updateProduct(){

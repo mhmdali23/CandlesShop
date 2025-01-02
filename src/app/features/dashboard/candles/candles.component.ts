@@ -87,7 +87,7 @@ export class CandlesComponent implements OnInit {
       Categories:[]
     };
 
-    this.productService.getProducts(params).subscribe({
+    this.productService.getDashboardProducts(params).subscribe({
       next:(response)=>{
         this.products = response.data
         this.totalItems=response.totalCount
