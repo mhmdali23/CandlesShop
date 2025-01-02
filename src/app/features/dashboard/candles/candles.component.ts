@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../core/services/product.service';
-import { Product } from '../../../models/product';
+import { Product, ProductDash } from '../../../models/product';
 import { ProductParams } from '../../../models/productParams';
 import { PaginationComponent } from '../../pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,7 @@ import { Category } from '../../../models/category';
 import { ToastrService } from 'ngx-toastr';
 import { AddProductComponent } from "./add-product/add-product.component";
 import { UpdateProductComponent } from "./update-product/update-product.component";
+import { ProductVariant, ProductVariantDash } from '../../../models/productVariant';
 
 @Component({
   selector: 'app-candles',
@@ -20,7 +21,7 @@ import { UpdateProductComponent } from "./update-product/update-product.componen
 })
 export class CandlesComponent implements OnInit {
 
-  products:Product[]=[]
+  products:ProductDash[]=[]
 
   scents:string[]=[]
 
@@ -51,7 +52,7 @@ export class CandlesComponent implements OnInit {
   constructor(private productService:ProductService,private categoryService:CategoriesService,private toastr:ToastrService){}
 
   isModelOpen = false
-  selectedProduct :Product|null = null
+  selectedProduct :ProductDash|null = null
 
   ngOnInit(): void {
     this.loadProducts();
@@ -90,6 +91,7 @@ export class CandlesComponent implements OnInit {
       next:(response)=>{
         this.products = response.data
         this.totalItems=response.totalCount
+        console.log(response)
       }
     })
   }
@@ -102,7 +104,7 @@ export class CandlesComponent implements OnInit {
     }
   }
 
-  openUpdateModal(product: Product): void {
+  openUpdateModal(product: ProductDash): void {
     this.selectedProduct={...product};
     this.isModelOpen=true
 
@@ -206,6 +208,89 @@ export class CandlesComponent implements OnInit {
   }
 
 
-  
+  isVariantsModalOpen = false;
+
+// Track original variants for comparison
+originalVariants: ProductVariantDash[] = [];
+
+// Open modal
+openVariantsModal(product: ProductDash): void {
+  this.selectedProduct = { ...product, variants: [...product.variants] }; // Deep copy to avoid direct mutation
+  this.originalVariants = JSON.parse(JSON.stringify(product.variants)); // Deep copy to track original state
+  this.isVariantsModalOpen = true;
+}
+
+// Close modal
+closeVariantsModal(): void {
+  this.isVariantsModalOpen = false;
+  this.selectedProduct = null;
+  this.originalVariants = [];
+}
+
+// Add a new variant
+addVariant(): void {
+  this.selectedProduct!.variants.push({
+    barcode: 0,
+    price: 0,
+    stockQuantity: 0,
+    weight: 0,
+  });
+}
+
+// Remove a variant
+removeVariant(variant: ProductVariantDash): void {
+  this.selectedProduct!.variants = this.selectedProduct!.variants.filter(v => v !== variant);
+}
+
+// Validate inputs
+isValidVariant(variant: ProductVariantDash): boolean {
+  return (
+    variant.barcode > 0 &&
+    variant.price >= 0 &&
+    variant.stockQuantity >= 0 &&
+    variant.weight >= 0
+  );
+}
+
+// Check if variants are modified
+isVariantsModified(): boolean {
+  return JSON.stringify(this.selectedProduct?.variants) !== JSON.stringify(this.originalVariants);
+}
+
+// Save variants with empty array allowed
+saveVariants(): void {
+  if (this.selectedProduct) {
+    // Validate all variants, but allow an empty array
+    if (this.selectedProduct.variants.length > 0) {
+      const allValid = this.selectedProduct.variants.every(this.isValidVariant);
+
+      if (!allValid) {
+        this.toastr.error('Please ensure all fields are valid and non-negative.');
+        return;
+      }
+    }
+
+    // Only send request if modified
+    if (this.isVariantsModified()) {
+      this.productService.updateProductVariants(this.selectedProduct.id, this.selectedProduct.variants)
+        .subscribe({
+          next: () => {
+            this.loadProducts();
+            this.toastr.success('Variants updated successfully');
+            this.closeVariantsModal();
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastr.error('Failed to update variants');
+          }
+        });
+    } else {
+      this.toastr.info('No changes detected');
+      this.closeVariantsModal();
+    }
+  }
+}
+
+
 
 }

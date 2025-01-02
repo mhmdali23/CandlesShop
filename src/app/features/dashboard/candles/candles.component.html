@@ -11,7 +11,7 @@
 
   <!-- Product Table -->
   <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border rounded-lg shadow-lg">
+    <table class="min-w-full bg-white border rounded-lg shadow-lg ">
       <thead class="bg-gray-100">
         <tr>
           <th class="py-2 px-4 text-left border-b">#</th>
@@ -35,6 +35,11 @@
               class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded"
               (click)="openUpdateModal(product)">
               Update
+            </button>
+            <button class="bg-purple-400  hover:bg-purple-800 text-white px-3 py-1 rounded"
+              (click)="openVariantsModal(product)"
+            >
+            Manage Variants
             </button>
             <button 
               class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
@@ -80,5 +85,97 @@
 ></app-add-product>
 </div>
 
+
+<!-- Variants Modal -->
+<div *ngIf="isVariantsModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
+    <h2 class="text-xl font-bold mb-4">Manage Variants</h2>
+    
+    <!-- Variants Table -->
+    <table class="w-full border">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="p-2 border">Barcode</th>
+          <th class="p-2 border">Price</th>
+          <th class="p-2 border">Stock</th>
+          <th class="p-2 border">Weight</th>
+          <th class="p-2 border">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="selectedProduct?.variants?.length === 0">
+          <td colspan="5" class="text-center text-gray-500">
+            No variants available. Add a new variant.
+          </td>
+        </tr>
+        <tr *ngFor="let variant of selectedProduct?.variants; let i = index">
+          <td>
+            <input
+              [(ngModel)]="variant.barcode"
+              class="border p-1 w-full"
+              type="number"
+              min="0"
+              required
+            />
+          </td>
+          <td>
+            <input
+              [(ngModel)]="variant.price"
+              class="border p-1 w-full"
+              type="number"
+              min="0"
+              required
+            />
+          </td>
+          <td>
+            <input
+              [(ngModel)]="variant.stockQuantity"
+              class="border p-1 w-full"
+              type="number"
+              min="0"
+              required
+            />
+          </td>
+          <td>
+            <input
+              [(ngModel)]="variant.weight"
+              class="border p-1 w-full"
+              type="number"
+              min="0"
+              required
+            />
+          </td>
+          <td>
+            <button
+              class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded"
+              (click)="removeVariant(variant)">
+              Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      
+    </table>
+
+    <button 
+      class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 mt-4 rounded"
+      (click)="addVariant()">
+      Add Variant
+    </button>
+    
+    <div class="flex justify-end mt-4 space-x-4">
+      <button 
+        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+        (click)="closeVariantsModal()">
+        Cancel
+      </button>
+      <button 
+        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+        (click)="saveVariants()">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
 
 
