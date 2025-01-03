@@ -28,5 +28,6 @@ export class ProductsComponent {
     return Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
   }
 
+ 
 
 }

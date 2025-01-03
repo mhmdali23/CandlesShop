@@ -10,8 +10,6 @@
       <div class="hidden md:flex space-x-8 absolute left-1/2 transform -translate-x-1/2 font-bold">
         <a class="text-black hover:text-[#385a28]" routerLink="/home">Home</a>
         <a class="text-black hover:text-[#385a28]" routerLink="/shop">Shop</a>
-        <a class="text-black hover:text-[#385a28]" routerLink="/cart">Cart</a>
-        <a class="text-black hover:text-[#385a28]" href="about.html">About us</a>
         <a *ngIf="isAuth" class="text-black hover:text-[#385a28]" href="/dashboard">Dashboard</a>   
       </div>
 
@@ -19,8 +17,9 @@
         <a routerLink="/login">
           <img src="images/User.svg" alt="User Icon" class="h-6 w-6 icon hover:filter-lime">
         </a>
-        <button  (click)="toggleCart()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon hover:filter-lime" width="1em" height="1em" viewBox="0 0 24 24"><path d="M20.304 5.544v0c-0.024-0.696-0.576-1.224-1.272-1.224h-2.304c-0.288-2.424-2.304-4.248-4.728-4.248-2.448 0-4.464 1.824-4.728 4.248h-2.28c-0.696 0-1.272 0.576-1.272 1.248l-0.624 15.936c-0.024 0.648 0.192 1.272 0.624 1.728 0.432 0.48 1.008 0.72 1.68 0.72h13.176c0.624 0 1.2-0.24 1.68-0.72 0.408-0.456 0.624-1.056 0.624-1.704l-0.576-15.984zM9.12 4.296c0.288-1.344 1.464-2.376 2.88-2.376s2.592 1.032 2.88 2.4l-5.76-0.024zM8.184 8.664c0.528 0 0.936-0.408 0.936-0.936v-1.536h5.832v1.536c0 0.528 0.408 0.936 0.936 0.936s0.936-0.408 0.936-0.936v-1.536h1.68l0.576 15.336c-0.024 0.144-0.072 0.288-0.168 0.384s-0.216 0.144-0.312 0.144h-13.2c-0.12 0-0.24-0.048-0.336-0.144-0.072-0.072-0.12-0.192-0.096-0.336l0.6-15.384h1.704v1.536c-0.024 0.528 0.384 0.936 0.912 0.936z"></path></svg>        </button>
+        <a  routerLink="/cart">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon hover:filter-lime" width="1em" height="1em" viewBox="0 0 24 24"><path d="M20.304 5.544v0c-0.024-0.696-0.576-1.224-1.272-1.224h-2.304c-0.288-2.424-2.304-4.248-4.728-4.248-2.448 0-4.464 1.824-4.728 4.248h-2.28c-0.696 0-1.272 0.576-1.272 1.248l-0.624 15.936c-0.024 0.648 0.192 1.272 0.624 1.728 0.432 0.48 1.008 0.72 1.68 0.72h13.176c0.624 0 1.2-0.24 1.68-0.72 0.408-0.456 0.624-1.056 0.624-1.704l-0.576-15.984zM9.12 4.296c0.288-1.344 1.464-2.376 2.88-2.376s2.592 1.032 2.88 2.4l-5.76-0.024zM8.184 8.664c0.528 0 0.936-0.408 0.936-0.936v-1.536h5.832v1.536c0 0.528 0.408 0.936 0.936 0.936s0.936-0.408 0.936-0.936v-1.536h1.68l0.576 15.336c-0.024 0.144-0.072 0.288-0.168 0.384s-0.216 0.144-0.312 0.144h-13.2c-0.12 0-0.24-0.048-0.336-0.144-0.072-0.072-0.12-0.192-0.096-0.336l0.6-15.384h1.704v1.536c-0.024 0.528 0.384 0.936 0.912 0.936z"></path></svg>        
+        </a>
       </div>
 
       <!-- Mobile Menu Toggle Button -->
@@ -46,42 +45,12 @@
     <div class="flex space-x-4 mt-4 ml-2">
       
     </div>
-    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="index.html">Home</a>
-    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" routerLink="/shop">Shop</a>
-    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="about.html">About us</a>
-    <a *ngIf="isAuth" class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" href="/dashboard">Dashboard</a>   
+    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" (click)="closeToggle()" routerLink="/home">Home</a>
+    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" (click)="closeToggle()" routerLink="/shop">Shop</a>
+    <a *ngIf="isAuth" class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" (click)="closeToggle()" routerLink="/dashboard">Dashboard</a>   
   </div>
   </div>
 </nav>
-
-
-<!-- Cart -->
-<div class="flex ">
-  <div
-    class="fixed inset-y-0 right-0 bg-white w-64 z-50"
-    [style.transform]="isSidebarOpen ? 'translateX(0)' : 'translateX(100%)'"
-    style="transition: transform 0.3s ease;"
-  >
-    <div class="p-4 font-bold text-lg flex justify-between mt-3">
-      <button (click)="toggleCart()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 384 512"
-          class="w-6 h-6 fill-current"
-          aria-hidden="true"
-        >
-          <path
-            d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"
-          />
-        </svg>
-      </button>
-      <button  (click)="toggleCart()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon hover:filter-lime" width="1em" height="1em" viewBox="0 0 24 24"><path d="M20.304 5.544v0c-0.024-0.696-0.576-1.224-1.272-1.224h-2.304c-0.288-2.424-2.304-4.248-4.728-4.248-2.448 0-4.464 1.824-4.728 4.248h-2.28c-0.696 0-1.272 0.576-1.272 1.248l-0.624 15.936c-0.024 0.648 0.192 1.272 0.624 1.728 0.432 0.48 1.008 0.72 1.68 0.72h13.176c0.624 0 1.2-0.24 1.68-0.72 0.408-0.456 0.624-1.056 0.624-1.704l-0.576-15.984zM9.12 4.296c0.288-1.344 1.464-2.376 2.88-2.376s2.592 1.032 2.88 2.4l-5.76-0.024zM8.184 8.664c0.528 0 0.936-0.408 0.936-0.936v-1.536h5.832v1.536c0 0.528 0.408 0.936 0.936 0.936s0.936-0.408 0.936-0.936v-1.536h1.68l0.576 15.336c-0.024 0.144-0.072 0.288-0.168 0.384s-0.216 0.144-0.312 0.144h-13.2c-0.12 0-0.24-0.048-0.336-0.144-0.072-0.072-0.12-0.192-0.096-0.336l0.6-15.384h1.704v1.536c-0.024 0.528 0.384 0.936 0.912 0.936z"></path></svg>        
-      </button>
-      
-    </div>
-  </div>
-</div>
 
 
 

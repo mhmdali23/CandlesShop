@@ -3,11 +3,12 @@ import { Component, HostListener } from '@angular/core';
 import { CategoriesService } from '../../../core/services/categories.service';
 import { Category } from '../../../models/category';
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css'
 })

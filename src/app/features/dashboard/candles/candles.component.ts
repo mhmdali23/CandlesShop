@@ -115,18 +115,18 @@ export class CandlesComponent implements OnInit {
     this.selectedProduct=null
   }
 
-  updateProduct(selectedProduct:any): void {
+  updateProduct(selectedProduct:ProductDash): void {
     if (selectedProduct) {
         const formData = new FormData();
 
         // Append basic product details
         formData.append('Name', selectedProduct.name);
         formData.append('Scent', selectedProduct.scent);
-        formData.append('Benefits', selectedProduct.benefits || '');
+        formData.append('Benefits', selectedProduct.benfits || '');
         formData.append('Description', selectedProduct.description || '');
         formData.append('Features', selectedProduct.features || '');
-        formData.append('CallToAction', selectedProduct.calltoaction || '');
-        formData.append('DiscountPercentage', selectedProduct.discountpercentage?.toString() || '0');
+        formData.append('CallToAction', selectedProduct.calltoAction || '');
+        formData.append('DiscountPercentage', selectedProduct.discountPercentage?.toString() || '0');
         formData.append('IsBestSeller', selectedProduct.isBestSeller.toString());
         formData.append('IsDailyOffer', selectedProduct.isDailyOffer.toString());
         formData.append('CategoryId', selectedProduct.categoryId?.toString());

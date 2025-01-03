@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Category } from '../../models/category';
 import { CategoriesService } from '../../core/services/categories.service';
 import { ProductService } from '../../core/services/product.service';
@@ -12,13 +12,14 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./filters.component.css'],
 })
 export class FiltersComponent {
-  selectedScents: string[] = [];
-  selectedCategories: number[] = [];
+  @Input() selectedCategories: number[] = []; // Receive selected categories as input
 
   availableScents: string[] = [];
   availableCategories: Category[] = [];
 
   @Output() filtersChanged = new EventEmitter<{ scents: string[]; categories: number[] }>();
+
+  selectedScents: string[] = [];
 
   constructor(private categoryService: CategoriesService, private productService: ProductService) {}
 

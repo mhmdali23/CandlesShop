@@ -9,37 +9,64 @@
       <h2 class="md:text-5xl font-semibold text-2xl p-3 font-irish text-gray-800">
         Products
       </h2>
-  
      
     </div>
   
     <!-- Product Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 bg-[#e5e5e5] p-5">
-      <div *ngFor="let product of homeProducts" class="product-card relative bg-white p-4 rounded-lg shadow-lg overflow-hidden transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
+      <a [routerLink]="['/details',product.id]" *ngFor="let product of homeProducts" class="product-card relative bg-white p-4 rounded-lg shadow-lg overflow-hidden transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl"   
+      >
+       
         <!-- Discount Badge -->
-        <div *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount" class="absolute top-4 left-4 bg-red-500 text-white text-sm px-2 py-1 rounded-full">
+        <!-- <div *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount" class="absolute top-4 left-4 bg-red-500 text-white text-sm px-2 py-1 rounded-full">
           {{ calculateDiscountPercentage(product.lowestPrice, product.lowestPriceAfterDiscount) }}% OFF
-        </div>
+        </div> -->
   
         <!-- Product Image -->
-        <img class="h-48 w-full object-cover rounded-lg mb-4" [src]="product.imageUrl" [alt]="product.name" />
+        <img class="h-48 w-full object-cover rounded-lg mb-4" [src]="product.imageUrl" [alt]="product.name" 
+          
+        />
   
         <!-- Product Information -->
         <h3 class="text-lg font-medium text-gray-900 mb-2">{{ product.name }}</h3>
         <p class="text-sm text-gray-600 mb-4">{{ product.scent }}</p>
   
-        <div class="flex justify-between items-center">
-          <!-- Price -->
-          <div>
-            <p class="text-lg font-semibold text-green-500">{{ product.lowestPriceAfterDiscount | currency }}</p>
-            <p *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount" class="text-sm text-gray-500 line-through">{{ product.lowestPrice | currency }}</p>
-          </div>
-  
-          <!-- Badge for Best Seller -->
-          <p *ngIf="product.isBestSeller" class="text-red-600 text-sm font-semibold">Best Seller!</p>
+        <!-- Discount Badge -->
+      <div *ngIf="product.isDailyOffer && product.discountPercentage > 0 
+        && product.discountPercentage !== null  && product.lowestPrice !== 0" 
+          class="absolute top-4 left-4 bg-red-500 text-white text-sm px-2 py-1 rounded-full">
+          {{ calculateDiscountPercentage(product.lowestPrice, product.lowestPriceAfterDiscount) }}% OFF 
+        </div>
+
+        <div class="p-4">
+        
+          @if(product.lowestPrice == product.highestPrice)
+          {
+            <div class="flex">
+              <p class="mr-2 text-lg font-semibold text-green-500">{{ product.lowestPriceAfterDiscount | currency }}</p>
+              <p *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount" class="text-base mr-2 font-medium text-gray-500 line-through">{{ product.lowestPrice | currency }}</p>
+            </div>
+             }
+          @else  
+          {
+            <div class="flex flex-col">
+              <!-- Lowest Price with Discount -->
+              <div class="flex items-center">
+                <p class="mr-2  text-lg font-semibold text-green-500">{{ product.lowestPriceAfterDiscount | currency }}</p>
+                <p class="mr-2 text-lg font-semibold text-green-500">{{ product.highestPriceAfterDiscount | currency }}</p>
+              </div>
+              <div class="flex items-center">
+                <p *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount" class="text-base mr-2 font-medium text-gray-500 line-through">{{ product.lowestPrice | currency }}</p>
+                <p *ngIf="product.highestPrice !== product.highestPriceAfterDiscount" class="text-base mr-2 font-medium text-gray-500 line-through">{{ product.highestPrice | currency }}</p>           
+              
+              </div>
+            </div>
+            
+          }
+          <p *ngIf="product.isBestSeller" class="text-red-600 font-semibold mt-2">Best Seller!</p>
         </div>
         
-      </div>
+      </a>
     </div>
   </div>
   

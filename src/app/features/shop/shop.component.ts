@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { FiltersComponent } from '../filters/filters.component';
 import { ProductService } from '../../core/services/product.service';
@@ -24,10 +24,14 @@ export class ShopComponent implements OnInit {
   selectedScents:string[]=[];
   selectedCategories:number[]=[];
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.loadProducts();
+    this.route.queryParams.subscribe((params) => {
+      const categoryIds = params['categoryId'] ? params['categoryId'].split(',').map(Number) : [];
+      this.selectedCategories = categoryIds; 
+      this.loadProducts();
+    });
   }
 
 
