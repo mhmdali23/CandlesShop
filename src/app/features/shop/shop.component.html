@@ -6,7 +6,7 @@
 <!-- Filters and Product List Section -->
 <div class="flex flex-col md:flex-row">
   <!-- Filters Section -->
-  <app-filters (filtersChanged)="onFiltersChanged($event)"></app-filters>
+  <app-filters [selectedCategories]="selectedCategories" (filtersChanged)="onFiltersChanged($event)"></app-filters>
 
   <!-- Product Listing -->
   <div class="product-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-11 bg-[#f1f1f1] p-5 flex-grow">

@@ -26,23 +26,9 @@ export class HeaderComponent  {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  isSidebarOpen = false;
   isAdminOpen = false;
-  toggleCart() {
-    const body =document.body;
-    if(this.isSidebarOpen){
-      body.style.position = "";
-      body.style.top = "";
-      body.style.height = "";
-      body.style.overflowY = "";
 
-    }
-    else{
-      body.style.height = "100vh";
-      body.style.overflowY = "hidden";
-    }
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
+
   toggleAdmin(){
     const body =document.body;
     if(this.isAdminOpen){
@@ -59,7 +45,8 @@ export class HeaderComponent  {
     this.isAdminOpen = !this.isAdminOpen;
   }
 
-  onSubmit(){
-    
+  closeToggle(){
+    this.isMenuOpen =false
   }
+  
 }
