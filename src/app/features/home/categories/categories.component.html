@@ -9,7 +9,12 @@
       </button>
   
       <!-- Carousel container with dynamic number of items based on screen size -->
-      <div class="flex transition-transform duration-500" [style.transform]="getTransform()">
+      <div class="flex transition-transform duration-500" 
+        [style.transform]="getTransform()"
+        (touchstart)="onTouchStart($event)"
+        (touchend)="onTouchEnd()"
+        (touchmove)="onTouchMove($event)"
+        >
         <div
           class="flex-shrink-0 flex flex-col items-center justify-center bg-[#ffffff] text-white text-xl font-bold p-5"
           *ngFor="let item of items; let i = index"

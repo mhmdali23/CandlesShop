@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ShippingDetails } from '../../models/shippingDetails';
 import { Observable } from 'rxjs';
+import { Order } from '../../models/order';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  baseUrl ="https://localhost:7012/api/Order/confirm-order"
+  baseUrl ="https://localhost:7012"
 
   constructor(private http:HttpClient) { }
 
@@ -16,6 +17,14 @@ export class OrderService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json', 
     });
-    return this.http.post(`${this.baseUrl}`,details, { headers,withCredentials:true })
+    return this.http.post(`${this.baseUrl}/api/Order/confirm-order`,details, { headers,withCredentials:true })
+  }
+
+  getOrders():Observable<Order[]>{
+    return this.http.get<Order[]>(`${this.baseUrl}/dashboard/orders`);
+  }
+
+  updateOrder(order: Order): Observable<Order> {
+    return this.http.put<Order>(`${this.baseUrl}/api/Order/update-order/${order.id}`, order);
   }
 }

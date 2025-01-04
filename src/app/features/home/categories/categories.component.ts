@@ -18,6 +18,12 @@ export class CategoriesComponent {
   items:Category[]=[];
   currentIndex= 0;
   showItemsPerSlide: number = 1;
+  touchStartX: number = 0;
+  touchEndX: number = 0;
+
+  private swipeThreshold: number = 50; // Minimum distance to consider a swipe
+
+
   ngOnInit(): void {
   
     this.categoryService.getCategories().subscribe({
@@ -72,5 +78,30 @@ export class CategoriesComponent {
 
   getTransform(): string {
     return `translateX(-${this.currentIndex * (100 / this.showItemsPerSlide)}%)`;
+  }
+
+
+  
+  onTouchStart(event:TouchEvent){
+    this.touchStartX = event.touches[0].clientX;
+    console.log("touch start")
+  }
+
+  onTouchEnd(){
+    const touchDiff = this.touchStartX - this.touchEndX
+
+    if(touchDiff >50){
+      this.nextSlide();
+    }else if(touchDiff < -50){
+      this.prevSlide();
+    }
+    console.log("touch End")
+
+  }
+
+  onTouchMove(event:TouchEvent){
+    this.touchEndX = event.touches[0].clientX;
+
+    console.log("touch move")
   }
 }
