@@ -77,6 +77,11 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.baseUrl}/porducts/DailyOffers`) ;
   }
 
+  getBestSellerProducts():Observable<Product[]>{
+    return this.http.get<Product[]>(`${this.baseUrl}/porducts/BestSellers`) ;
+
+  }
+
   getProductById(id:number):Observable<ProductDetails>{
     return this.http.get<ProductDetails>(`${this.productById}/${id}`);
   }

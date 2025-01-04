@@ -1,45 +1,5 @@
-<!-- <div class="container bg-[#385a28] h-screen w-[250px]">
-    <div class="flex justify-end" >
-        <button class="  text-white w-100">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-6 h-6 fill-current">
-                <path d="M0 80C0 53.5 21.5 32 48 32H400C426.5 32 448 53.5 448 80C448 106.5 426.5 128 400 128H48C21.5 128 0 106.5 0 80zM0 256C0 229.5 21.5 208 48 208H400C426.5 208 448 229.5 448 256C448 282.5 426.5 304 400 304H48C21.5 304 0 282.5 0 256zM48 384C21.5 384 0 405.5 0 432C0 458.5 21.5 480 48 480H400C426.5 480 448 458.5 448 432C448 405.5 426.5 384 400 384H48z"/>
-              </svg>
-        </button>    
-    </div>
-    
-    <div class="navigation">
-        <ul>
-            <li class="p-4">
-                <a routerLink="/dashboard">Dashboard</a>
-            </li>
-            <li class="p-4">
-                <a routerLink="/dashboard/candles">Candles</a>
-            </li>           
-        </ul>
-    </div>
-</div>
 
-<div
-  class="sidenav"
-  [ngClass]="isLeftSidebarCollapsed() ? 'sidenav-collapsed' : ''"
->
-  <div class="logo-container">
-    <button class="logo" (click)="toggleCollapse()">
-      <i class="fa fa-bars"></i>
-    </button>
-    @if (!isLeftSidebarCollapsed()) {
-      <div class="logo-text">CarHub</div>
-      <button class="btn-close" (click)="closeSidenav()">
-        <i class="fa fa-times close-icon"></i>
-      </button>
-    }
-  </div>
-</div>
-
- -->
-
-
- <div class=" w-72  h-full bg-[#385a28] transition-all  duration-500 lg:z-50 sm:z-40 relative"  
+ <div class=" w-72  h-full bg-[#385a28] transition-all duration-500 lg:z-50 sm:z-40 relative"  
     [style.width]="IsDashboardOpen?'5rem':'18rem'"
     > 
     <ul class="space-y-6">

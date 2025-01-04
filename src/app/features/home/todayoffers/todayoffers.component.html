@@ -1,6 +1,6 @@
-<div class="mt-[76px]">
-    <h1 class="text-center text-gray-800 font-irish font-bold text-4xl mb-11">
-      Daily Offers
+<div class="mt-[76px] ">
+    <h1 class="text-center  text-gray-800 font-irish font-bold text-4xl mb-11">
+      Today Offers
     </h1>
   
     <!-- Carousel Container -->
@@ -13,9 +13,9 @@
       </button>
   
       <!-- Carousel Items -->
-      <div class="flex transition-transform duration-700 ease-in-out" [style.transform]="getTransform()">
+      <div class="flex transition-transform duration-700 ease-in-out gap-3" [style.transform]="getTransform()">
         <a
-          class="flex-shrink-0 relative flex flex-col items-center justify-center bg-white text-gray-800 p-5 rounded-lg shadow-sm group hover:shadow-lg hover:scale-105 transform transition-transform duration-500"
+          class="flex-shrink-0 relative flex flex-col items-center justify-center bg-green-100 text-gray-800 p-5 rounded-lg shadow-sm group hover:shadow-lg hover:scale-105 transform transition-transform duration-500"
           *ngFor="let product of products; let i = index"
           [routerLink]="['/details', product.id]"
           [ngClass]="{

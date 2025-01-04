@@ -1,0 +1,153 @@
+<!-- Orders Section -->
+<div class="space-y-6">
+    <!-- Overview Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Orders Count -->
+      <div class="flex items-center space-x-4 p-6 bg-white shadow-lg rounded-lg">
+        <div class="text-blue-500 bg-blue-100 p-3 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 5a3 3 0 013-3h6a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V5zm3-1a1 1 0 00-1 1v10a1 1 0 001 1h6a1 1 0 001-1V5a1 1 0 00-1-1H7z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-gray-800 text-lg font-semibold">{{ orders.length }} Orders</h3>
+        </div>
+      </div>
+  
+      <!-- Paid Orders Profit -->
+      <div class="flex items-center space-x-4 p-6 bg-white shadow-lg rounded-lg">
+        <div class="text-green-500 bg-green-100 p-3 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M5 10l5 5 5-5H5z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-gray-800 text-lg font-semibold">{{ totalPaidProfit | currency }} Paid</h3>
+        </div>
+      </div>
+  
+      <!-- Unpaid Orders Profit -->
+      <div class="flex items-center space-x-4 p-6 bg-white shadow-lg rounded-lg">
+        <div class="text-red-500 bg-red-100 p-3 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M5 10l5-5 5 5H5z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-gray-800 text-lg font-semibold">{{ totalUnpaidProfit | currency }} Unpaid</h3>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Orders Table -->
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+      <table class="min-w-full border-collapse">
+        <thead class="bg-gray-200 text-gray-700">
+          <tr>
+            <th class="px-4 py-2 text-left font-medium">Order ID</th>
+            <th class="px-4 py-2 text-left font-medium">Order Date</th>
+            <th class="px-4 py-2 text-left font-medium">Subtotal</th>
+            <th class="px-4 py-2 text-left font-medium">Order Status</th>
+            <th class="px-4 py-2 text-left font-medium">Payment Status</th>
+            <th class="px-4 py-2 text-left font-medium">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr
+            *ngFor="let order of orders"
+            [ngClass]="{
+              'bg-gray-50': order.orderStatus === 'Pending',
+              'bg-green-50': order.orderStatus === 'Shipped',
+              'bg-blue-50': order.orderStatus === 'Delivered'
+            }"
+            class="hover:bg-gray-100 transition"
+          >
+            <td class="px-4 py-2">{{ order.id }}</td>
+            <td class="px-4 py-2">{{ order.orderDate | date: 'short' }}</td>
+            <td class="px-4 py-2">{{ order.subTotal | currency }}</td>
+            <td class="px-4 py-2">
+              <select
+                [(ngModel)]="order.orderStatus"
+                (change)="updateOrderStatus(order, order.orderStatus)"
+                class="px-3 py-1 border rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="Pending">Pending</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            </td>
+            <td class="px-4 py-2">
+              <select
+                [(ngModel)]="order.paymentStatus"
+                (change)="updatePaymentStatus(order, order.paymentStatus)"
+                class="px-3 py-1 border rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="Unpaid">Unpaid</option>
+                <option value="Paid">Paid</option>
+              </select>
+            </td>
+            <td class="px-4 py-2">
+              <button
+                (click)="showOrderDetails(order)"
+                class="px-4 py-2 text-white bg-indigo-500 hover:bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                View Details
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Order Details Modal -->
+    <div *ngIf="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white w-full max-w-3xl rounded-lg shadow-lg p-6 relative">
+        <!-- Close Button -->
+        <button
+          (click)="closeModal()"
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <h2 class="text-2xl font-bold mb-4">Order Details</h2>
+        <!-- Order Summary -->
+        <div class="mb-4 space-y-2">
+          <p><strong>Order Date:</strong> {{ selectedOrder?.orderDate | date: 'short' }}</p>
+          <p><strong>Total:</strong> {{ selectedOrder?.subTotal | currency }}</p>
+          <p><strong>Order Status:</strong> {{ selectedOrder?.orderStatus }}</p>
+          <p><strong>Payment Status:</strong> {{ selectedOrder?.paymentStatus }}</p>
+        </div>
+        <!-- Shipping Details -->
+        <h3 class="text-xl font-medium mb-2">Shipping Details</h3>
+        <div class="space-y-1">
+          <p><strong>Full Name:</strong> {{ selectedOrder?.shippingDetail?.fullName }}</p>
+          <p><strong>Address:</strong> {{ selectedOrder?.shippingDetail?.address }}</p>
+          <p><strong>Email:</strong> {{ selectedOrder?.shippingDetail?.email }}</p>
+          <p><strong>Phone:</strong> {{ selectedOrder?.shippingDetail?.phoneNumber }}</p>
+        </div>
+        <!-- Order Items -->
+        <h3 class="text-xl font-medium mt-6 mb-2">Order Items</h3>
+        <table class="w-full bg-gray-100 rounded-lg">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="px-4 py-2 text-left">Product Name</th>
+              <th class="px-4 py-2 text-left">Price</th>
+              <th class="px-4 py-2 text-left">Quantity</th>
+              <th class="px-4 py-2 text-left">Sub Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of selectedOrder?.orderItems">
+              <td class="px-4 py-2">{{ item.productVariant.product.name }}</td>
+              <td class="px-4 py-2">{{ item.productVariant.price | currency }}</td>
+              <td class="px-4 py-2">{{ item.quantity }}</td>
+              <td class="px-4 py-2">{{ item.total | currency }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
