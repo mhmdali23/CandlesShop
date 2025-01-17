@@ -27,4 +27,24 @@ export class OrderService {
   updateOrder(order: Order): Observable<Order> {
     return this.http.put<Order>(`${this.baseUrl}/api/Order/update-order/${order.id}`, order);
   }
+
+  verifyEmail(token: string): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('Skip-Interceptor', 'true');
+      
+    return this.http.post(`${this.baseUrl}/api/Email/verify-token`, {}, { headers });
+  }
+  
+  
+
+
+  sendVerificationEmail(email: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/Email/verify`, { email }, {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+    });
+  }
+  
 }

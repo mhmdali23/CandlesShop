@@ -1,12 +1,12 @@
 <div class="mt-[76px] ">
-    <h1 class="text-center text-gray-800 font-irish font-bold text-4xl mb-9">Shop by Category</h1>
+    <h1 class="text-center text-gray-800 font-irish font-bold text-4xl mb-9 ">Shop by Category</h1>
   
-    <div class="relative w-full mx-auto overflow-hidden my-7">
+    <div class="relative w-full mx-auto overflow-hidden my-7 carousel-container">
       <button
-        class="absolute z-10 top-1/2 left-2 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full hover:"
-        (click)="prevSlide()">
-        ❮
-      </button>
+      class="prev-btn absolute z-10 top-1/2 left-4 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full shadow-md hover:bg-opacity-75 hover:scale-110 transition-transform duration-300"
+      (click)="prevSlide()">
+      ❮
+    </button>
   
       <!-- Carousel container with dynamic number of items based on screen size -->
       <div class="flex transition-transform duration-500" 
@@ -42,11 +42,12 @@
         </div>
       </div>
     
-      <button
-        class="absolute top-1/2 right-2 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full"
-        (click)="nextSlide()">
-        ❯
-      </button>
+       <!-- Next Button -->
+    <button
+    class="next-btn absolute z-10 top-1/2 right-4 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full shadow-md hover:bg-opacity-75 hover:scale-110 transition-transform duration-300"
+    (click)="nextSlide()">
+    ❯
+  </button>
     </div>
   </div>
   

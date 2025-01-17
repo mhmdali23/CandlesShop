@@ -2,17 +2,19 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule } from '@angular/router';
 import { AuthenticationService } from '../../core/services/authentication.service';
+import { ToastrService } from 'ngx-toastr';
+import { CartIconComponent } from '../../features/cart-icon/cart-icon.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule,RouterLink],
+  imports: [CommonModule, RouterModule,RouterLink,CartIconComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent  {
 
-  constructor(private authService:AuthenticationService){}
+  constructor(private authService:AuthenticationService,private toastr:ToastrService){}
 
   isAuth:boolean=false;
   ngOnInit(): void {
@@ -49,4 +51,20 @@ export class HeaderComponent  {
     this.isMenuOpen =false
   }
   
+  logoutConfirm:boolean = false
+
+
+  signout(){
+    this.authService.logout();
+    setTimeout(() => {
+      window.location.href="http://localhost:4200/home"
+    }, 1000);
+    this.toastr.success("Logout Successfully")
+
+  }
+
+  confirmLogout(){
+    this.logoutConfirm = !this.logoutConfirm ;
+    console.log(this.logoutConfirm)
+  }
 }
