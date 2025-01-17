@@ -1,5 +1,5 @@
-<nav class="bg-white pt-6">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 ">
+<nav class="bg-white pt-6 sticky top-0 z-50">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <!-- Brand -->
       <a class="text-white text-xl font-bold" href="/home">
@@ -13,44 +13,74 @@
         <a *ngIf="isAuth" class="text-black hover:text-[#385a28]" href="/dashboard">Dashboard</a>   
       </div>
 
-      <div class=" md:flex flex  space-x-4">
+      <!-- User Options & Icons -->
+      <div class="md:flex flex space-x-4">
+        <button *ngIf="isAuth" class="Btn" (click)="confirmLogout()">
+          <div class="sign">
+            <svg viewBox="0 0 512 512">
+              <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+            </svg>
+          </div>
+          <div class="text">Logout</div>
+        </button>
         <a routerLink="/login">
           <img src="images/User.svg" alt="User Icon" class="h-6 w-6 icon hover:filter-lime">
         </a>
-        <a  routerLink="/cart">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon hover:filter-lime" width="1em" height="1em" viewBox="0 0 24 24"><path d="M20.304 5.544v0c-0.024-0.696-0.576-1.224-1.272-1.224h-2.304c-0.288-2.424-2.304-4.248-4.728-4.248-2.448 0-4.464 1.824-4.728 4.248h-2.28c-0.696 0-1.272 0.576-1.272 1.248l-0.624 15.936c-0.024 0.648 0.192 1.272 0.624 1.728 0.432 0.48 1.008 0.72 1.68 0.72h13.176c0.624 0 1.2-0.24 1.68-0.72 0.408-0.456 0.624-1.056 0.624-1.704l-0.576-15.984zM9.12 4.296c0.288-1.344 1.464-2.376 2.88-2.376s2.592 1.032 2.88 2.4l-5.76-0.024zM8.184 8.664c0.528 0 0.936-0.408 0.936-0.936v-1.536h5.832v1.536c0 0.528 0.408 0.936 0.936 0.936s0.936-0.408 0.936-0.936v-1.536h1.68l0.576 15.336c-0.024 0.144-0.072 0.288-0.168 0.384s-0.216 0.144-0.312 0.144h-13.2c-0.12 0-0.24-0.048-0.336-0.144-0.072-0.072-0.12-0.192-0.096-0.336l0.6-15.384h1.704v1.536c-0.024 0.528 0.384 0.936 0.912 0.936z"></path></svg>        
-        </a>
+        <app-cart-icon></app-cart-icon>
       </div>
 
       <!-- Mobile Menu Toggle Button -->
-      <button 
-        class="text-gray-400 hover:text-lime-600 focus:outline-none md:hidden" 
-        (click)="toggleMenu()" 
-        aria-label="Toggle Menu">
+      <button class="text-gray-400 hover:text-lime-600 focus:outline-none md:hidden" (click)="toggleMenu()" aria-label="Toggle Menu">
         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
         </svg>
       </button>
-
-      <!-- Icons (End of Navbar) -->
-      
     </div>
 
     <!-- Mobile Menu -->
-    <div 
-    class="absolute top-[100px] left-0 w-full bg-[#385a28] text-white space-y-2 py-4 px-4 shadow-lg z-50 transition-all duration-500 overflow-hidden"
-    [style.maxHeight]="isMenuOpen ? '300px' : '0'"
-    [style.opacity]="isMenuOpen ? '1' : '0'"
-  >
-    <div class="flex space-x-4 mt-4 ml-2">
-      
+    <div class="absolute top-[100px] left-0 w-full bg-[#385a28] text-white space-y-2 py-4 px-4 shadow-lg z-50 transition-all duration-500 overflow-hidden"
+         [style.maxHeight]="isMenuOpen ? '300px' : '0'"
+         [style.opacity]="isMenuOpen ? '1' : '0'">
+      <div class="flex space-x-4 mt-4 ml-2"></div>
+      <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" (click)="closeToggle()" routerLink="/home">Home</a>
+      <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" (click)="closeToggle()" routerLink="/shop">Shop</a>
+      <a *ngIf="isAuth" class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" (click)="closeToggle()" routerLink="/dashboard">Dashboard</a>   
     </div>
-    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" (click)="closeToggle()" routerLink="/home">Home</a>
-    <a class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" (click)="closeToggle()" routerLink="/shop">Shop</a>
-    <a *ngIf="isAuth" class="block py-2 px-3 hover:bg-white hover:text-lime-600 rounded" (click)="closeToggle()" routerLink="/dashboard">Dashboard</a>   
-  </div>
   </div>
 </nav>
+
+
+
+<div
+  class="w-full max-w-sm p-8 border border-gray-200 bg-white shadow-xl rounded-lg fixed z-50"
+  [style.display]="logoutConfirm ? 'block' : 'none'"
+  style="transform: translate(-50%, -50%); left: 50%; top: 50%;"
+>
+  <!-- Modal Header -->
+  <h1 class="text-2xl font-semibold mb-6 text-center text-gray-800">
+    Confirm Logout
+  </h1>
+
+  <!-- Modal Body -->
+  <div class="flex justify-center space-x-4">
+    <!-- Logout Button -->
+    <button
+      (click)="signout()"
+      class="px-5 py-2 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 hover:shadow-lg focus:ring-2 focus:ring-red-400 focus:outline-none transition-all duration-300"
+    >
+      Logout
+    </button>
+
+    <!-- Cancel Button -->
+    <button
+      (click)="confirmLogout()"
+      class="px-5 py-2 bg-gray-100 text-gray-800 font-medium rounded-lg shadow-md hover:bg-gray-200 hover:shadow-lg focus:ring-2 focus:ring-gray-300 focus:outline-none transition-all duration-300"
+    >
+      Cancel
+    </button>
+  </div>
+</div>
+
 
 
 

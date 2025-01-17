@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        '385a28': '#385a28', // Ensure the custom color is defined
+      },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
       },

@@ -29,3 +29,29 @@
     color: #34d399; /* Change text color when hovering */
   }
   
+
+
+/* Hide the previous and next buttons by default */
+.carousel-container .prev-btn, .carousel-container .next-btn {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8) translateX(-10px);  /* Start the buttons smaller and slightly off-screen */
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s, transform 0.3s ease; /* Add transform for smooth scaling and sliding */
+}
+
+/* Show the buttons when hovering over the carousel container */
+.carousel-container:hover .prev-btn,
+.carousel-container:hover .next-btn {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateX(0);  /* Scale the buttons to normal size and slide them to their final position */
+  transition: opacity 0.3s ease, visibility 0s linear 0s, transform 0.3s ease; /* Ensure smooth scaling and sliding */
+}
+
+/* Optional: Add a hover effect on the buttons */
+.carousel-container .prev-btn:hover, 
+.carousel-container .next-btn:hover {
+  transform: scale(1.1) translateX(0);  /* Slightly increase size and keep them in place when hovering over the buttons */
+  transition: transform 0.2s ease;
+}
+

@@ -1,0 +1,16 @@
+<div *ngIf="message" class="relative w-full h-[70px] my-9 bg-black">
+    <!-- Balloon Animation -->
+  <!-- <div class="balloon-container">
+    <div *ngFor="let item of items; let i = index" [ngStyle]="getBalloonStyles(i)" class="balloon"></div>
+  </div>  -->
+    <!-- Message Container -->
+    <div *ngIf="message" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-full text-center">
+      <!-- Scrolling Message -->
+      <div class="relative w-full text-center overflow-hidden h-10 ">
+        <div class="scroll-animation" role="alert">
+          {{ message }}
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -4,14 +4,13 @@
     </h1>
   
     <!-- Carousel Container -->
-    <div class="relative w-full mx-auto overflow-hidden my-7 bg-gray-50 shadow-lg rounded-lg">
-      <!-- Previous Button -->
-      <button
-        class="absolute z-10 top-1/2 left-4 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full shadow-md hover:bg-opacity-75 hover:scale-110 transition-transform duration-300"
-        (click)="prevSlide()">
-        ❮
-      </button>
-  
+  <div class="relative w-full mx-auto overflow-hidden my-7 bg-gray-50 shadow-lg rounded-lg carousel-container">
+    <!-- Previous Button -->
+    <button
+      class="prev-btn absolute z-10 top-1/2 left-4 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full shadow-md hover:bg-opacity-75 hover:scale-110 transition-transform duration-300"
+      (click)="prevSlide()">
+      ❮
+    </button>
       <!-- Carousel Items -->
       <div class="flex transition-transform duration-700 ease-in-out gap-3" [style.transform]="getTransform()">
         <a
@@ -98,11 +97,11 @@
       </div>
   
       <!-- Next Button -->
-      <button
-        class="absolute z-10 top-1/2 right-4 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full shadow-md hover:bg-opacity-75 hover:scale-110 transition-transform duration-300"
-        (click)="nextSlide()">
-        ❯
-      </button>
+    <button
+    class="next-btn absolute z-10 top-1/2 right-4 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full shadow-md hover:bg-opacity-75 hover:scale-110 transition-transform duration-300"
+    (click)="nextSlide()">
+    ❯
+  </button>
     </div>
   </div>
   

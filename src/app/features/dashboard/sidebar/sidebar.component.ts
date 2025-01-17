@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { Component} from '@angular/core';
 import {  RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink,CommonModule],
+  imports: [RouterLink,CommonModule,NgClass],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
@@ -18,7 +18,7 @@ export class SidebarComponent {
   IsDashboardOpen :boolean = false;
 
   logoutConfirm:boolean = false
-  activeItem :string='';
+  activeItem :string='dashboard';
 
   OpenDashboard(){
     this.IsDashboardOpen = !this.IsDashboardOpen;
