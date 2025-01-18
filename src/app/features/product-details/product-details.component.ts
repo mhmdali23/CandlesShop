@@ -118,10 +118,16 @@ export class ProductDetailsComponent {
     if (this.selectedVariant?.stockQuantity === 0) {
       this.toastr.warning('This variant is sold out.');
     }
+    
+
   }
   
 
   increadeQuantity(){
+    if(this.quantity === this.selectedVariant!.stockQuantity){
+      this.toastr.warning('Quantity will exceed available stock.');
+      return;
+    }
     this.quantity++;
   }
 

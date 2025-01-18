@@ -1,4 +1,7 @@
-<nav class="bg-white pt-6 sticky top-0 z-50">
+<nav
+  class="bg-white pt-6 sticky top-0 z-50 transition-all duration-300"
+  [ngClass]="{'translate-y-0': !isNavHidden, '-translate-y-full': isNavHidden}"
+>
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <!-- Brand -->
