@@ -40,6 +40,35 @@
                 <span class="text-lg font-medium whitespace-nowrap" [style.display]="IsDashboardOpen?'none':'inline'">Candles</span>
             </a>
         </li>
+
+       <li>
+        <a
+        routerLink="/dashboard/categories"
+        class="flex items-center rounded-sm hover:text-[#385a28] p-4 hover:bg-white transition"
+        [ngClass]="activeItem === 'Categories' ? 'bg-white text-[#3c622b]' : 'text-white'"
+        (click)="setActive('Categories')"
+        >
+            <span class="flex items-center justify-center w-14 h-14">
+            <!-- Categories SVG -->
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-8 h-8"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+            >
+                <path
+                d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11-6h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 6h-4V5h4v4zm-9 4H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6H5v-4h4v4zm8-6h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6h-4v-4h4v4z"
+                />
+            </svg>
+            </span>
+            <span
+            class="text-lg font-medium whitespace-nowrap"
+            [style.display]="IsDashboardOpen ? 'none' : 'inline'"
+            >
+            Categories
+            </span>
+        </a>
+    </li>
         
        
         <li>

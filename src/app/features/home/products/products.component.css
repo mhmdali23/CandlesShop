@@ -1,0 +1,75 @@
+/* From Uiverse.io by 3bdel3ziz-T */
+/* Global more styles */
+.more {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    font-size: 15px;
+    border: none;
+  }
+  
+
+  
+  /* Main button styles */
+  .more {
+    position: relative;
+    height: fit-content;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 140px;
+    height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    text-indent: 50px;
+    transition: 300ms;
+    font-weight: 500;
+  }
+  
+  .more::before {
+    content: "";
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #282936;
+    z-index: -1;
+  }
+  
+  .more::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 17px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transition: 400ms;
+  }
+  
+  .more:hover {
+    text-indent: 15px;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .more:active {
+    scale: 0.95;
+  }
+  
+  .more:hover::before {
+    width: 100%;
+  }
+  
+  .more:hover::after {
+    left: calc(100% - 25px);
+  }

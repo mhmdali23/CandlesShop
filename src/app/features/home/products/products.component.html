@@ -1,12 +1,8 @@
 <div class="container mx-auto py-12 px-6">
     <!-- Header and Button in one line -->
-    <div class="flex flex-col-reverse md:flex-row justify-between items-center mb-8">
-         <!-- More Products Button -->
-      <a [routerLink]="['/shop']" class="py-3 px-6 font-irish bg-lime-600 text-white font-semibold rounded-lg hover:bg-lime-700 transition duration-300">
-        View More Products 
-      </a>
+    <div class="flex flex-col-reverse md:flex-row justify-center items-center mb-8"> 
       <!-- Header -->
-      <h2 class="md:text-5xl font-semibold text-2xl p-3 font-irish text-gray-800">
+      <h2 class="md:text-5xl font-semibold text-2xl p-3 text-center font-irish text-gray-800">
         Products
       </h2>
      
@@ -68,5 +64,12 @@
         
       </a>
     </div>
+    <div class="flex justify-center my-7">
+    <!-- More Products Button -->
+    <button [routerLink]="['/shop']" class="more text-center">
+      View More 
+    </button>
+    </div>
+     
   </div>
   

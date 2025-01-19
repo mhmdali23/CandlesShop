@@ -109,9 +109,24 @@
       <!-- Product Description -->
       <div class="description mt-6 text-gray-700 leading-relaxed">
         <p>{{ productDetails?.description }}</p>
-        <p><strong>Features:</strong> {{ productDetails?.features }}</p>
-        <p><strong>Benefits:</strong> {{ productDetails?.benfits }}</p>
-        <p><strong>Call to Action:</strong> {{ productDetails?.calltoAction }}</p>
+      
+        <!-- Features List -->
+        <p class="font-bold text-lg mt-4">Features:</p>
+        <ul class="list-disc list-inside pl-5 space-y-2">
+          <li *ngFor="let feature of productDetails?.features?.split(',')" class="text-gray-600">
+            {{ feature.trim() }}
+          </li>
+        </ul>
+      
+        <!-- Benefits List -->
+        <p class="font-bold text-lg mt-4">Benefits:</p>
+        <ul class="list-disc list-inside pl-5 space-y-2">
+          <li *ngFor="let benefit of productDetails?.benfits?.split(',')" class="text-gray-600">
+            {{ benefit.trim() }}
+          </li>
+        </ul>
+      
+        <p class="mt-4"><strong>Call to Action:</strong> {{ productDetails?.calltoAction }}</p>
       </div>
     </div>
   </div>
