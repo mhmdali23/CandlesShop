@@ -1,0 +1,102 @@
+<div class="flex flex-col h-screen p-4">
+  <!-- Header -->
+  <h2 class="text-2xl font-bold mb-4">Scents Management</h2>
+
+  <!-- Add Scent Button -->
+  <div class="mb-4">
+    <button (click)="openAddModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+      Add Scent
+    </button>
+  </div>
+
+  <!-- Scents List -->
+  <div class="flex-1 overflow-y-auto">
+    <h3 class="text-xl font-semibold mb-4">Scents List</h3>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <li *ngFor="let scent of scents" (click)="openUpdateModal(scent)" 
+        class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+      <div class="p-4">
+        <!-- Scent Image -->
+        <div class="relative aspect-square overflow-hidden rounded-lg">
+          <img *ngIf="scent.imageUrl" [src]="scent.imageUrl" alt="Scent Image" 
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+          <div *ngIf="!scent.imageUrl" class="w-full h-full bg-gray-200 flex items-center justify-center">
+            <span class="text-gray-500">No Image</span>
+          </div>
+        </div>
+        <!-- Scent Name and Description -->
+        <div class="mt-4">
+          <h4 class="text-lg font-semibold text-gray-800">{{ scent.name }}</h4>
+          <p class="text-sm text-gray-600 mt-1">{{ scent.description || 'No description available' }}</p>
+        </div>
+        <!-- Delete Button -->
+        <button (click)="deleteScent(scent.id, $event)" class="mt-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+          Delete
+        </button>
+      </div>
+    </li>
+    </ul>
+  </div>
+
+  <!-- Add Scent Modal -->
+  <div *ngIf="isAddModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+      <h3 class="text-xl font-semibold mb-4">Add Scent</h3>
+      <form (ngSubmit)="addScent()" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" id="name" [(ngModel)]="newScent.name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+        </div>
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea id="description" [(ngModel)]="newScent.description" name="description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+        </div>
+        <div>
+          <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+          <input type="file" id="image" (change)="onFileSelected($event)" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button type="button" (click)="isAddModalOpen = false" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Update Scent Modal -->
+<div *ngIf="isUpdateModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg p-6 w-full max-w-md">
+    <h3 class="text-xl font-semibold mb-4">Update Scent</h3>
+    <form (ngSubmit)="updateScent()" class="space-y-4">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+        <input type="text" id="name" [(ngModel)]="selectedScent!.name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+      </div>
+      <div>
+        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea id="description" [(ngModel)]="selectedScent!.description" name="description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+      </div>
+      <div>
+        <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+        <input type="file" id="image" (change)="onFileSelected($event)" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">
+          <input type="checkbox" [(ngModel)]="removeImage" name="removeImage" class="mr-2"> Remove Image
+        </label>
+      </div>
+      <div class="flex justify-end space-x-2">
+        <button type="button" (click)="isUpdateModalOpen = false" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+          Cancel
+        </button>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

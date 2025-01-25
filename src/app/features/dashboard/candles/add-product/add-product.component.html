@@ -40,11 +40,11 @@
         <label for="scent" class="text-sm font-medium text-gray-700 w-full sm:w-1/3">Scent</label>
         <select
           id="scent"
-          [(ngModel)]="newProduct.scent"
-          name="scent"
+          [(ngModel)]="newProduct.scentId"
+          name="scentId"
           class="rounded-md shadow-sm w-full px-3 py-2 focus:outline-none"
           required>
-          <option *ngFor="let scent of scents" [value]="scent">{{ scent }}</option>
+          <option *ngFor="let scent of scents" [value]="scent.id">{{ scent.name }}</option>
         </select>
         <div *ngIf="addProductForm.controls['scent']?.invalid && addProductForm.controls['scent']?.touched" class="text-sm text-red-600">
           Please select a scent.

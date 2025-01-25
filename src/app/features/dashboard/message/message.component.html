@@ -1,35 +1,51 @@
 <div class="container mx-auto p-6 max-w-lg bg-white shadow-md rounded-lg">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">Message Management</h2>
-  
-    <div class="flex flex-wrap mb-6">
-      <!-- Current Message Display -->
-      <div class="w-full mb-4">
-        <label class="block text-gray-600 font-medium mb-2" for="currentMessage">Current Message:</label>
-        <p id="currentMessage" class="text-gray-700 bg-gray-100 p-3 rounded overflow-scroll">
-          {{ message }}
-        </p>
-      </div>
-    </div>
-  
-    <div class="flex flex-wrap mb-4">
-      <!-- Update Message Section -->
-      <div class="w-full">
-        <label class=" text-gray-600 font-medium mb-2 " for="newMessage">Update Message:</label>
-        <textarea
-          id="newMessage"
-          [(ngModel)]="message"
-          placeholder="Enter new message"
-          class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 overflow-scroll text-ellipsis"
-        ></textarea>
-      </div>
-    </div>
-  
-    <!-- Update Button -->
-    <button
-      class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
-      (click)="updateMessage()"
-    >
-      Update Message
-    </button>
+  <h2 class="text-2xl font-bold text-gray-800 mb-4">Message Management</h2>
+
+  <!-- Current Message Display -->
+  <div class="w-full mb-4">
+    <label class="block text-gray-600 font-medium mb-2" for="currentMessage">Current Message:</label>
+    <p id="currentMessage" class="text-gray-700 bg-gray-100 p-3 rounded overflow-scroll">
+      {{ message }}
+    </p>
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="Message Image" class="mt-2 w-full h-auto rounded-lg">
   </div>
-  
+
+  <!-- Update Message Section -->
+  <div class="w-full mb-4">
+    <label class="text-gray-600 font-medium mb-2" for="newMessage">Update Message:</label>
+    <textarea
+      id="newMessage"
+      [(ngModel)]="message"
+      placeholder="Enter new message"
+      class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 overflow-scroll text-ellipsis"
+    ></textarea>
+  </div>
+
+  <!-- Image Upload Section -->
+  <div class="w-full mb-4">
+    <label class="text-gray-600 font-medium mb-2" for="imageUpload">Upload Image:</label>
+    <input
+      type="file"
+      id="imageUpload"
+      (change)="onFileSelected($event)"
+      class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+      accept="image/*"
+    >
+  </div>
+
+  <!-- Clear Image Button -->
+  <button
+    class="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition mb-4"
+    (click)="selectedImage = null; imageUrl = ''"
+  >
+    Clear Image
+  </button>
+
+  <!-- Update Button -->
+  <button
+    class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
+    (click)="updateMessage()"
+  >
+    Update Message
+  </button>
+</div>

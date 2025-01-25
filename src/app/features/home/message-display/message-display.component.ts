@@ -7,12 +7,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './message-display.component.html',
-  styleUrl: './message-display.component.css'
+  styleUrls: ['./message-display.component.css']
 })
 export class MessageDisplayComponent {
-
-
   message: string = '';
+  imageUrl: string = '';
 
   constructor(private messageService: MessageService) {}
 
@@ -23,28 +22,13 @@ export class MessageDisplayComponent {
   loadMessage(): void {
     this.messageService.getMessage().subscribe({
       next: (response) => {
-        this.message = response.message;
+        this.message = response.text;
+        this.imageUrl = response.imageUrl;
       },
       error: () => {
         this.message = '';
+        this.imageUrl = '';
       }
     });
   }
-
-  // items = new Array(11); // Number of balloons
-
-  // getBalloonStyles(index: number) {
-  //   // Randomize left position, animation duration, and delay for each balloon
-  //   const left = `${Math.random() * 100}%`; // Random left position
-  //   const animationDuration = `${Math.random() * 5 + 8}s`; // Random animation duration (between 8s and 13s)
-  //   const animationDelay = `${Math.random() * 3}s`; // Random animation delay
-
-  //   return {
-  //     left: left,
-  //     animationDuration: animationDuration,
-  //     animationDelay: animationDelay
-  //   };
-  // }
-
-
 }

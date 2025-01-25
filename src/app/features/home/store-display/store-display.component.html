@@ -1,0 +1,31 @@
+<div class="p-6 mt-11 container" *ngIf="stores.length > 0">
+  <h2 class="text-3xl font-bold mb-6 text-center font-irish text-gray-800">Our Stores</h2>
+
+  <!-- Swiper Container -->
+  <swiper
+    [slidesPerView]="1"
+    [spaceBetween]="20"
+    [pagination]="pagination"
+    [breakpoints]="breakpoints"
+    class="mySwiper"
+  >
+    <!-- Swiper Slides -->
+    <ng-template swiperSlide *ngFor="let store of stores">
+      <div class="flex-shrink-0 w-full bg-white p-6 transition-shadow duration-300 transform hover:scale-105">
+        <!-- Larger Image Container -->
+        <div class="relative w-48 h-48 mx-auto mb-4">
+          <img
+            [src]="store.imageurl"
+            alt="{{ store.name }}"
+            class="w-full h-full object-cover rounded-full border-4 border-white shadow-lg"
+          />
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-center text-gray-800">{{ store.name }}</h3>
+        <p class="text-gray-600 text-center">{{ store.address }}</p>
+      </div>
+    </ng-template>
+
+    <!-- Pagination -->
+    <div class="swiper-pagination !bottom-0"></div>
+  </swiper>
+</div>

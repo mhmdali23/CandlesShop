@@ -1,75 +1,97 @@
 <div class="container mx-auto py-12 px-6">
-    <!-- Header and Button in one line -->
-    <div class="flex flex-col-reverse md:flex-row justify-center items-center mb-8"> 
-      <!-- Header -->
-      <h2 class="md:text-5xl font-semibold text-2xl p-3 text-center font-irish text-gray-800">
-        Products
-      </h2>
-     
-    </div>
-  
-    <!-- Product Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8  p-5">
-      <a [routerLink]="['/details',product.id]" *ngFor="let product of homeProducts" class="product-card relative bg-white p-4 rounded-lg shadow-lg overflow-hidden transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl"   
-      >
-       
-        <!-- Discount Badge -->
-        <!-- <div *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount" class="absolute top-4 left-4 bg-red-500 text-white text-sm px-2 py-1 rounded-full">
-          {{ calculateDiscountPercentage(product.lowestPrice, product.lowestPriceAfterDiscount) }}% OFF
-        </div> -->
-  
-        <!-- Product Image -->
-        <img class="h-48 w-full object-cover rounded-lg mb-4" [src]="product.imageUrl" [alt]="product.name" 
-          
-        />
-  
-        <!-- Product Information -->
-        <h3 class="text-lg font-medium text-gray-900 mb-2">{{ product.name }}</h3>
-        <p class="text-sm text-gray-600 mb-4">{{ product.scent }}</p>
-  
-        <!-- Discount Badge -->
-      <div *ngIf="product.isDailyOffer && product.discountPercentage > 0 
-        && product.discountPercentage !== null  && product.lowestPrice !== 0" 
-          class="absolute top-4 left-4 bg-red-500 text-white text-sm px-2 py-1 rounded-full">
-          {{ calculateDiscountPercentage(product.lowestPrice, product.lowestPriceAfterDiscount) }}% OFF 
-        </div>
-
-        <div class="p-4">
-        
-          @if(product.lowestPrice == product.highestPrice)
-          {
-            <div class="flex">
-              <p class="mr-2 text-lg font-semibold text-green-500">{{ product.lowestPriceAfterDiscount | currency }}</p>
-              <p *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount" class="text-base mr-2 font-medium text-gray-500 line-through">{{ product.lowestPrice | currency }}</p>
-            </div>
-             }
-          @else  
-          {
-            <div class="flex flex-col">
-              <!-- Lowest Price with Discount -->
-              <div class="flex items-center">
-                <p class="mr-2  text-lg font-semibold text-green-500">{{ product.lowestPriceAfterDiscount | currency }}</p>
-                <p class="mr-2 text-lg font-semibold text-green-500">{{ product.highestPriceAfterDiscount | currency }}</p>
-              </div>
-              <div class="flex items-center">
-                <p *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount" class="text-base mr-2 font-medium text-gray-500 line-through">{{ product.lowestPrice | currency }}</p>
-                <p *ngIf="product.highestPrice !== product.highestPriceAfterDiscount" class="text-base mr-2 font-medium text-gray-500 line-through">{{ product.highestPrice | currency }}</p>           
-              
-              </div>
-            </div>
-            
-          }
-          <p *ngIf="product.isBestSeller" class="text-red-600 font-semibold mt-2">Best Seller!</p>
-        </div>
-        
-      </a>
-    </div>
-    <div class="flex justify-center my-7">
-    <!-- More Products Button -->
-    <button [routerLink]="['/shop']" class="more text-center">
-      View More 
-    </button>
-    </div>
-     
+  <!-- Header and Button in one line -->
+  <div class="flex flex-col-reverse md:flex-row justify-center items-center mb-8">
+    <!-- Header -->
+    <h2 class="md:text-5xl font-semibold text-2xl p-3 text-center font-irish text-gray-800">
+      Products
+    </h2>
   </div>
-  
+
+  <!-- Product Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-5">
+    <a
+      [routerLink]="['/details', product.id]"
+      *ngFor="let product of homeProducts"
+      class="product-card relative bg-white p-4 rounded-lg shadow-lg overflow-hidden transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
+    >
+      <!-- Discount Badge -->
+      <div
+        *ngIf="product.isDailyOffer && product.discountPercentage > 0 
+               && product.discountPercentage !== null && product.lowestPrice !== 0"
+        class="absolute top-4 left-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md animate-bounce">
+        {{ calculateDiscountPercentage(product.lowestPrice, product.lowestPriceAfterDiscount) }}% OFF
+      </div>
+
+      <!-- Product Image -->
+      <img
+        class="h-48 w-full object-cover rounded-lg mb-4"
+        [src]="product.imageUrl"
+        [alt]="product.name"
+      />
+
+      <!-- Product Information -->
+      <h3 class="text-lg font-medium text-gray-900 mb-2">{{ product.name }}</h3>
+      <p class="text-sm text-gray-600 mb-4">{{ product.scent }}</p>
+
+      <!-- Price Section -->
+      <div class="p-4">
+        @if (product.lowestPrice === product.highestPrice) {
+          <div class="flex">
+            <p class="mr-2 text-lg font-semibold text-green-500">
+              {{ product.lowestPriceAfterDiscount | currency }}
+            </p>
+            <p
+              *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount"
+              class="text-base mr-2 font-medium text-gray-500 line-through"
+            >
+              {{ product.lowestPrice | currency }}
+            </p>
+          </div>
+        } @else {
+          <div class="flex flex-col">
+            <!-- Lowest Price with Discount -->
+            <div class="flex items-center">
+              <p class="mr-2 text-lg font-semibold text-green-500">
+                {{ product.lowestPriceAfterDiscount | currency }}
+              </p>
+              <p class="mr-2 text-lg font-semibold text-green-500">
+                {{ product.highestPriceAfterDiscount | currency }}
+              </p>
+            </div>
+            <!-- Original Prices -->
+            <div class="flex items-center">
+              <p
+                *ngIf="product.lowestPrice !== product.lowestPriceAfterDiscount"
+                class="text-base mr-2 font-medium text-gray-500 line-through"
+              >
+                {{ product.lowestPrice | currency }}
+              </p>
+              <p
+                *ngIf="product.highestPrice !== product.highestPriceAfterDiscount"
+                class="text-base mr-2 font-medium text-gray-500 line-through"
+              >
+                {{ product.highestPrice | currency }}
+              </p>
+            </div>
+          </div>
+        }
+        <p
+          *ngIf="product.isBestSeller"
+          class="text-sm font-semibold text-white bg-green-600 px-3 py-1 rounded-full mt-2 inline-block"
+        >
+          Best Seller!
+        </p>
+      </div>
+    </a>
+  </div>
+
+  <!-- More Products Button -->
+  <div class="flex justify-center my-7">
+    <button
+      [routerLink]="['/shop']"
+      class="more text-center bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-colors duration-300"
+    >
+      View More
+    </button>
+  </div>
+</div>

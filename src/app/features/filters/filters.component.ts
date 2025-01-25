@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { Category } from '../../models/category';
 import { CategoriesService } from '../../core/services/categories.service';
 import { ProductService } from '../../core/services/product.service';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.css'],
 })
-export class FiltersComponent {
+export class FiltersComponent implements OnInit {
   @Input() selectedCategories: number[] = []; // Receive selected categories as input
 
   availableScents: string[] = [];
@@ -21,7 +21,10 @@ export class FiltersComponent {
 
   selectedScents: string[] = [];
 
-  constructor(private categoryService: CategoriesService, private productService: ProductService) {}
+  constructor(
+    private categoryService: CategoriesService,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
     this.loadCategories();
@@ -31,17 +34,20 @@ export class FiltersComponent {
   loadCategories(): void {
     this.categoryService.getCategories().subscribe({
       next: (categories) => (this.availableCategories = categories),
+      error: (err) => console.error('Error loading categories:', err),
     });
   }
 
   loadScents(): void {
     this.productService.getScents().subscribe({
       next: (scents) => (this.availableScents = scents),
+      error: (err) => console.error('Error loading scents:', err),
     });
   }
 
-  onScentChange(scent: string, event: any): void {
-    if (event.target.checked) {
+  onScentChange(scent: string, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
       this.selectedScents.push(scent);
     } else {
       this.selectedScents = this.selectedScents.filter((s) => s !== scent);
@@ -49,8 +55,9 @@ export class FiltersComponent {
     this.emitFilters();
   }
 
-  onCategoryChange(categoryId: number, event: any): void {
-    if (event.target.checked) {
+  onCategoryChange(categoryId: number, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
       this.selectedCategories.push(categoryId);
     } else {
       this.selectedCategories = this.selectedCategories.filter((c) => c !== categoryId);

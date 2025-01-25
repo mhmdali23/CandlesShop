@@ -5,11 +5,12 @@ import { ProductsComponent } from "./products/products.component";
 import { TodayoffersComponent } from "./todayoffers/todayoffers.component";
 import { BestsellerComponent } from "./bestseller/bestseller.component";
 import { MessageDisplayComponent } from "./message-display/message-display.component";
+import { StoreDisplayComponent } from "./store-display/store-display.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CategoriesComponent, ProductsComponent, TodayoffersComponent, BestsellerComponent, MessageDisplayComponent],
+  imports: [CommonModule, CategoriesComponent, ProductsComponent, TodayoffersComponent, BestsellerComponent, MessageDisplayComponent, StoreDisplayComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

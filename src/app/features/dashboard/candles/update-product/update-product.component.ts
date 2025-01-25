@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDash } from '../../../../models/product';
+import { Scent } from '../../../../models/scent';
 
 @Component({
   selector: 'app-update-product',
@@ -14,7 +15,7 @@ export class UpdateProductComponent {
 
   
   @Input() categories:any =[]
-  @Input() scents:any=[]
+  @Input() scents: Scent[] = []; // Updated to use Scent model
   @Input() selectedProduct:any;
 
   @Output() productUpdated = new EventEmitter<any>();

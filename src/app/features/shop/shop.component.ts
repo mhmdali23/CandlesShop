@@ -10,74 +10,62 @@ import { ProductParams } from '../../models/productParams';
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule,RouterLink,PaginationComponent,FiltersComponent],
+  imports: [CommonModule, RouterLink, PaginationComponent, FiltersComponent],
   templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.css']
+  styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
-  
-
   products: Product[] = []; // Array to store fetched products
-  totalItems:number=0;
-  currentPage:number=1;
-  itemsPerPage:number=6;
-  selectedScents:string[]=[];
-  selectedCategories:number[]=[];
+  totalItems: number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 6;
+  selectedScents: string[] = [];
+  selectedCategories: number[] = [];
 
-  constructor(private productService: ProductService,private route: ActivatedRoute) {}
+  constructor(private productService: ProductService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       const categoryIds = params['categoryId'] ? params['categoryId'].split(',').map(Number) : [];
-      this.selectedCategories = categoryIds; 
+      this.selectedCategories = categoryIds;
       this.loadProducts();
     });
   }
 
-
   loadProducts(): void {
-    const params :ProductParams={
+    const params: ProductParams = {
       PageIndex: this.currentPage,
-      PageSize:this.itemsPerPage,
-      Scent:this.selectedScents,
-      Categories:this.selectedCategories
+      PageSize: this.itemsPerPage,
+      Scent: this.selectedScents,
+      Categories: this.selectedCategories,
     };
 
-    console.log(this.currentPage);
     this.productService.getProducts(params).subscribe({
-      next: (response) =>{
-        this.products=response.data
-        this.totalItems = response.totalCount
-        console.log(response)
-      }
-      
-    })
+      next: (response) => {
+        this.products = response.data;
+        this.totalItems = response.totalCount;
+      },
+      error: (err) => {
+        console.error('Error fetching products:', err);
+      },
+    });
   }
 
   onPageChanged(page: number): void {
     if (this.currentPage !== page) {
       this.currentPage = page;
-  
-      const filters = { scents: this.selectedScents, categories: this.selectedCategories };
-      this.loadProducts(); // Load products for the selected page
+      this.loadProducts();
     }
   }
 
-
   onFiltersChanged(filters: { scents: string[]; categories: number[] }): void {
-    // Update selected filters
     this.selectedScents = filters.scents;
     this.selectedCategories = filters.categories;
-
-    // Reset to the first page when filters change
-    this.currentPage = 1;
-
-    // Reload products with updated filters and pagination
+    this.currentPage = 1; // Reset to the first page
     this.loadProducts();
   }
 
   calculateDiscount(originalPrice: number, discountedPrice: number): number {
     return Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
   }
-  
 }

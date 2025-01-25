@@ -1,4 +1,5 @@
 import { ProductVariant, ProductVariantDash } from "./productVariant"
+import { Scent } from "./scent"
 
 export interface Product{
     id:number
@@ -23,7 +24,7 @@ export interface Product{
 export interface ProductDash{
     id:number
     name: string
-    scent: string
+    scent: Scent
     isBestSeller: boolean
     description:string
     features:string

@@ -7,27 +7,25 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent {
+  homeProducts: Product[] = [];
 
-  homeProducts:Product[]=[]
-  constructor(private productService:ProductService){}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-   
     this.productService.getHomeProducts().subscribe({
-      next:(response) => this.homeProducts = response
-    })
-    
+      next: (response) => (this.homeProducts = response),
+      error: (error) => {
+        console.error('Error loading home products:', error);
+      },
+    });
   }
 
   calculateDiscountPercentage(originalPrice: number, discountedPrice: number): number {
     return Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
   }
-
- 
-
 }

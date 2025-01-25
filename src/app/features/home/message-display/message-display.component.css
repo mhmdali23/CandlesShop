@@ -1,74 +1,20 @@
+/* Scrolling Animation */
 @keyframes scroll {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100vw);
-    }
+  0% {
+    transform: translateX(-100%);
   }
-  
-  .scroll-animation {
-    @apply absolute text-lg font-semibold text-green-500;
-    animation: scroll 15s linear infinite;
+  100% {
+    transform: translateX(100vw);
   }
-  
-/* Balloon falling animation */
-@keyframes balloonFall {
-    0% {
-      top: -10%;
-      transform: rotate(0deg);
-    }
-    100% {
-      top: 100%;
-      transform: rotate(360deg);
-    }
-  }
+}
 
-  /* Container for balloons */
-  .balloon-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events :fill; /* Allow interactions with underlying content */
-    z-index: 5; /* Make sure balloons are above the background but below the text */
-  }
+.scroll-animation {
+  position: absolute;
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+  color: #22c55e; /* text-green-500 */
+  animation: scroll 15s linear infinite;
+  white-space: nowrap;
+}
 
-  /* Balloon Styles */
-  .balloon {
-    position: absolute;
-    width: 50px;
-    height: 60px;
-    background-color: #FF6347; /* Balloon color */
-    border-radius: 50%;
-    animation: balloonFall 9s linear infinite;
-    opacity: 0.8;
-  }
 
-  /* Randomize balloon positions and timing */
-  .balloon:nth-child(1) {
-    left: 10%;
-    animation-duration: 12s;
-    animation-delay: 2s;
-  }
-
-  .balloon:nth-child(2) {
-    left: 30%;
-    animation-duration: 10s;
-    animation-delay: 1s;
-  }
-
-  .balloon:nth-child(3) {
-    left: 50%;
-    animation-duration: 8s;
-    animation-delay: 0.5s;
-  }
-
-  .balloon:nth-child(4) {
-    left: 70%;
-    animation-duration: 11s;
-    animation-delay: 3s;
-  }
-  
-  

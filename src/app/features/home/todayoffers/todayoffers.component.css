@@ -1,57 +1,13 @@
-/* Container with perspective */
-.relative {
-    perspective: 1500px; /* Control the depth of the 3D effect */
-  }
-  
-  /* Card hover effect */
-  .relative .group {
-    transform-style: preserve-3d; /* Enable 3D transformations */
-    transition: transform 0.5s ease, box-shadow 0.3s ease; /* Smooth transition */
-  }
-  
-  /* Apply the pop-out effect */
-  .relative .group:hover {
-    transform: translateZ(30px) scale(1.05) rotate3d(30deg); /* Move the card forward and slightly rotate */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-  }
-  
-  /* Ensure the image zooms as well */
-  .relative .group img {
-    transition: transform 0.3s ease; /* Smooth image transition */
-  }
-  
-  .relative .group:hover img {
-    transform: scale(1.1); /* Slightly zoom the image */
-  }
-  
-  /* Additional text effects (optional) */
-  .relative .group:hover .text-center {
-    color: #34d399; /* Change text color when hovering */
-  }
-  
-
-
-/* Hide the previous and next buttons by default */
-.carousel-container .prev-btn, .carousel-container .next-btn {
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(0.8) translateX(-10px);  /* Start the buttons smaller and slightly off-screen */
-  transition: opacity 0.3s ease, visibility 0s linear 0.3s, transform 0.3s ease; /* Add transform for smooth scaling and sliding */
-}
-
-/* Show the buttons when hovering over the carousel container */
-.carousel-container:hover .prev-btn,
-.carousel-container:hover .next-btn {
+/* Custom styles for Swiper pagination bullets */
+.swiper-pagination-bullet {
+  background-color: #911f1f; /* Default bullet color */
   opacity: 1;
-  visibility: visible;
-  transform: scale(1) translateX(0);  /* Scale the buttons to normal size and slide them to their final position */
-  transition: opacity 0.3s ease, visibility 0s linear 0s, transform 0.3s ease; /* Ensure smooth scaling and sliding */
+  width: 12px;
+  height: 12px;
+  margin: 0 8px !important;
+  transition: background-color 0.3s ease;
 }
 
-/* Optional: Add a hover effect on the buttons */
-.carousel-container .prev-btn:hover, 
-.carousel-container .next-btn:hover {
-  transform: scale(1.1) translateX(0);  /* Slightly increase size and keep them in place when hovering over the buttons */
-  transition: transform 0.2s ease;
+.swiper-pagination-bullet-active {
+  background-color: #3182ce; /* Active bullet color */
 }
-

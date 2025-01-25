@@ -1,12 +1,49 @@
+/* Ensure the discount badge stays on top */
+.z-10 {
+  z-index: 10;
+}
+
+/* Style the Best Seller badge */
+.best-seller-badge {
+  background-color: #16a34a; /* Green color */
+  color: white;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600; /* font-semibold */
+  padding: 0.25rem 0.75rem; /* px-3 py-1 */
+  border-radius: 9999px; /* rounded-full */
+  display: inline-block;
+  margin-top: 0.5rem; /* mt-2 */
+}
+
+/* Add smooth transitions for hover effects */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure images scale smoothly */
 .product-card img {
-    transition: transform 0.2s ease-in-out;
+  transition: transform 0.3s ease;
+}
+
+.product-card img:hover {
+  transform: scale(1.05);
+}
+
+/* Add a subtle animation for the discount badge */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
   }
-  
-  .product-card img:hover {
-    transform: scale(1.05);
+  50% {
+    transform: translateY(-5px);
   }
-  
-  .product-card button {
-    transition: background-color 0.3s ease;
-  }
-  
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}

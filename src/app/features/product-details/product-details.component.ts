@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../core/services/product.service';
 import { ProductDetails } from '../../models/productDetails';
 import { ActivatedRoute } from '@angular/router';
@@ -8,75 +8,73 @@ import { ProductVariant } from '../../models/productVariant';
 import { CartService } from '../../core/services/cart.service';
 import { AddToCartRequest } from '../../models/addToCartRequest';
 import { ToastrService } from 'ngx-toastr';
-import {CookieService} from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css']
+  styleUrls: ['./product-details.component.css'],
 })
-export class ProductDetailsComponent {
+export class ProductDetailsComponent implements OnInit {
   productDetails: ProductDetails | null = null;
   selectedWeight: number = 0;
-  selectedVariant: ProductVariant | null = null; 
+  selectedVariant: ProductVariant | null = null;
 
-  addToCartReq:AddToCartRequest = {
-    sessionId:'',
-    productVariantId:0,
-    quantity:0
-  }
-  quantity:number=1;
+  addToCartReq: AddToCartRequest = {
+    sessionId: '',
+    productVariantId: 0,
+    quantity: 0,
+  };
+  quantity: number = 1;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute,
-    private cartService:CartService,private toastr:ToastrService,private cookieService:CookieService) {}
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute,
+    private cartService: CartService,
+    private toastr: ToastrService,
+    private cookieService: CookieService
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const id = +params['id'];
       if (id) {
         this.getProductDetails(id);
       }
     });
-    this.initSession()
+    this.initSession();
   }
 
-  getCookie(name:string):string|null{
-
-    return this.cookieService.get(name)
-    
+  getCookie(name: string): string | null {
+    return this.cookieService.get(name);
   }
 
-  private initSession(){
-    const sessionId= this.getCookie("SessionId");
-    console.log(sessionId)
-    if(!sessionId){
+  private initSession() {
+    const sessionId = this.getCookie('SessionId');
+    if (!sessionId) {
       this.cartService.getSessionId().subscribe({
         next: (response) => {
           this.addToCartReq.sessionId = response.sessionId;
-          console.log(response.sessionId)
         },
         error: (err) => {
           console.error('Error initializing session:', err);
           this.toastr.error('Failed to create a session. Please try again.');
         },
-        });
-      }else{
-        console.log(sessionId)
-         this.addToCartReq.sessionId = sessionId
-      } 
-      console.log(document.cookie)
+      });
+    } else {
+      this.addToCartReq.sessionId = sessionId;
     }
+  }
 
-
-  addToCart(addToCartReq:AddToCartRequest){
-    if(!addToCartReq.sessionId){
+  addToCart(addToCartReq: AddToCartRequest) {
+    if (!addToCartReq.sessionId) {
       this.toastr.error('Please refresh the page.');
       return;
     }
 
-    if(this.selectedVariant){
+    if (this.selectedVariant) {
       addToCartReq.productVariantId = this.selectedVariant.id;
       addToCartReq.quantity = this.quantity;
 
@@ -96,49 +94,42 @@ export class ProductDetailsComponent {
     this.productService.getProductById(id).subscribe({
       next: (response) => {
         this.productDetails = response;
-        // Set the default selected variant based on the first product variant (if available)
         if (this.productDetails?.productVariants?.length > 0) {
           this.selectedVariant = this.productDetails.productVariants[0];
           this.selectedWeight = this.selectedVariant.weight;
         }
-        console.log(response)
       },
       error: (err) => {
         console.error('Error fetching product details:', err);
-      }
+      },
     });
   }
 
   onWeightChange(): void {
-    // Find the selected variant based on the selected weight
-    this.selectedVariant = this.productDetails?.productVariants.find(
-      (variant) => variant.weight === this.selectedWeight
-    ) || null;  // Ensure selectedVariant is either ProductVariant or null
+    this.selectedVariant =
+      this.productDetails?.productVariants.find(
+        (variant) => variant.weight === this.selectedWeight
+      ) || null;
 
     if (this.selectedVariant?.stockQuantity === 0) {
       this.toastr.warning('This variant is sold out.');
     }
-    
-
   }
-  
 
-  increadeQuantity(){
-    if(this.quantity === this.selectedVariant!.stockQuantity){
+  increadeQuantity() {
+    if (this.quantity === this.selectedVariant!.stockQuantity) {
       this.toastr.warning('Quantity will exceed available stock.');
       return;
     }
     this.quantity++;
   }
 
-  decreaseQuantity(){
-    if(this.quantity >1){
+  decreaseQuantity() {
+    if (this.quantity > 1) {
       this.quantity--;
     }
   }
 
-
-  // Get price after discount
   getPriceAfterDiscount(): number {
     return this.selectedVariant?.priceAfterDiscount || this.selectedVariant?.price || 0;
   }

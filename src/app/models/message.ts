@@ -1,3 +1,4 @@
 export interface Message{
-    message:string
+    text:string,
+    imageUrl:string
 }

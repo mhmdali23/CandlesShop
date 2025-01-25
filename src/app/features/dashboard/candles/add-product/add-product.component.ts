@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { Scent } from '../../../../models/scent';
 
 @Component({
   selector: 'app-add-product',
@@ -15,12 +16,12 @@ export class AddProductComponent {
   @Output() productAdded = new EventEmitter<FormData>();
 
   @Input() categories:any =[]
-  @Input() scents:any=[]
+  @Input() scents: Scent[] = []; // Updated to use Scent model
 
 
   newProduct: any = {
     name: '',
-    scent: '',
+    scentId: 0,
     benefits: '',
     callToAction: '',
     isBestSeller: false,
@@ -45,7 +46,6 @@ export class AddProductComponent {
       this.newProduct.image = file;
     }
   }
-
   addProduct(): void {
     if (!this.newProduct.image) {
       return;
@@ -53,7 +53,7 @@ export class AddProductComponent {
   
     const formData = new FormData();
     formData.append('Name', this.newProduct.name);
-    formData.append('Scent', this.newProduct.scent);
+    formData.append('ScentId', this.newProduct.scentId.toString()||'0'); // Updated to use ScentId
     formData.append('Benefits', this.newProduct.benefits || '');
     formData.append('Description', this.newProduct.description || '');
     formData.append('Features', this.newProduct.features || '');
@@ -76,7 +76,7 @@ export class AddProductComponent {
   resetForm() {
     this.newProduct = {
       name: '',
-      scent: '',
+      scentId: 0,
       benefits: '',
       callToAction: '',
       isBestSeller: false,

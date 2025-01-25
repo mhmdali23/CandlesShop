@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 import { AddProductComponent } from "./add-product/add-product.component";
 import { UpdateProductComponent } from "./update-product/update-product.component";
 import { ProductVariant, ProductVariantDash } from '../../../models/productVariant';
+import { Scent } from '../../../models/scent';
+import { ScentService } from '../../../core/services/scent.service';
 
 @Component({
   selector: 'app-candles',
@@ -23,8 +25,8 @@ export class CandlesComponent implements OnInit {
 
   products:ProductDash[]=[]
 
-  scents:string[]=[]
-
+  scents: Scent[] = []; 
+  
   itemsPerPage =6
   totalItems=0
   currentPage = 1
@@ -49,7 +51,9 @@ export class CandlesComponent implements OnInit {
   isAddProductModalOpen = false;
   imageErrorMessage: string = '';
 
-  constructor(private productService:ProductService,private categoryService:CategoriesService,private toastr:ToastrService){}
+  constructor(private productService:ProductService
+    ,private categoryService:CategoriesService
+    ,private toastr:ToastrService,private scentService:ScentService){}
 
   isModelOpen = false
   selectedProduct :ProductDash|null = null
@@ -71,7 +75,7 @@ export class CandlesComponent implements OnInit {
 
 
   loadScents(){
-    this.productService.getScents().subscribe({
+    this.scentService.getScents().subscribe({
       next:(response)=>{
         this.scents=response
         console.log(response)
@@ -99,13 +103,14 @@ export class CandlesComponent implements OnInit {
   onPageChanged(page: number): void {
     if (this.currentPage !== page) {
       this.currentPage = page;
- 
+
       this.loadProducts(); // Load products for the selected page
     }
   }
 
   openUpdateModal(product: ProductDash): void {
     this.selectedProduct={...product};
+    console.log(this.selectedProduct)
     this.isModelOpen=true
 
   }
@@ -121,7 +126,7 @@ export class CandlesComponent implements OnInit {
 
         // Append basic product details
         formData.append('Name', selectedProduct.name);
-        formData.append('Scent', selectedProduct.scent);
+        formData.append('ScentId', this.selectedProduct?.scent.id.toString() || '0');
         formData.append('Benefits', selectedProduct.benfits || '');
         formData.append('Description', selectedProduct.description || '');
         formData.append('Features', selectedProduct.features || '');
@@ -190,7 +195,7 @@ export class CandlesComponent implements OnInit {
     this.isAddProductModalOpen = false;
   }
 
- 
+
 
   addProduct(newProduct:FormData): void {
     

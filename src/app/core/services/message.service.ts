@@ -4,22 +4,18 @@ import { Observable } from 'rxjs';
 import { Message } from '../../models/message';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MessageService {
+  private baseUrl = 'https://localhost:7012/api';
 
+  constructor(private http: HttpClient) {}
 
-  baseUrl = "https://localhost:7012/api";
-
-  constructor(private http:HttpClient) { }
-
-
-  getMessage():Observable<Message>{
+  getMessage(): Observable<Message> {
     return this.http.get<Message>(`${this.baseUrl}/Message`);
   }
 
-  updateMessage(newMessage:string):Observable<void>{
-    const payload = {message: newMessage }
-    return this.http.post<void>(`${this.baseUrl}/Message/update-message`,payload);
+  updateMessage(formData: FormData): Observable<Message> {
+    return this.http.post<Message>(`${this.baseUrl}/Message/update-message`, formData);
   }
 }

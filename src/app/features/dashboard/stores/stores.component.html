@@ -1,0 +1,47 @@
+<div class="p-6 bg-gray-100 min-h-screen">
+    <h2 class="text-2xl font-bold mb-6">Manage Stores</h2>
+  
+    <!-- Add Store Button -->
+    <div class="mb-6">
+      <button
+        (click)="openAddStoreModal()"
+        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+      >
+        Add New Store
+      </button>
+    </div>
+  
+    <!-- List of Stores -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold mb-4">Store List</h3>
+      <ul class="space-y-4">
+        <li *ngFor="let store of stores" class="border p-4 rounded-lg flex justify-between items-center">
+          <div>
+            <strong class="text-lg">{{ store.name }}</strong>
+            <p class="text-gray-600">{{ store.address }}</p>
+            <img
+              [src]="getSafeImageUrl(store.imageurl)"
+              alt="{{ store.name }}"
+              class="w-24 h-24 object-cover mt-2 rounded-lg"
+            />
+          </div>
+          <div class="space-x-2">
+            <!-- Edit Button -->
+            <button
+              (click)="openEditStoreModal(store)"
+              class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
+            >
+              Edit
+            </button>
+            <!-- Delete Button -->
+            <button
+              (click)="deleteStore(store.id)"
+              class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+            >
+              Delete
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
